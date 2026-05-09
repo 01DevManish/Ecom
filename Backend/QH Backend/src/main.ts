@@ -5,7 +5,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   // CORS — allow storefront origins
-  const origins = (process.env.CORS_ORIGINS || 'http://localhost:3001,http://localhost:3002,http://localhost:3003')
+  const origins = (process.env.CORS_ORIGINS || 'http://localhost:3001')
     .split(',')
     .map((o) => o.trim());
 
@@ -16,6 +16,6 @@ async function bootstrap() {
 
   const port = process.env.PORT || 4001;
   await app.listen(port);
-  console.log(`🛒 EcomBackend running on http://localhost:${port}`);
+  console.log(`🛒 QH Backend running on http://localhost:${port}`);
 }
 bootstrap();
