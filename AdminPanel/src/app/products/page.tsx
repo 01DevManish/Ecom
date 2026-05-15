@@ -237,6 +237,7 @@ export default function AdminProductsPage() {
               <div>
                 <h3 className="text-[18px] font-semibold text-[#202223]">Edit Product Images</h3>
                 <p className="text-[12px] text-[#6d7175]">{editing.title} · up to 10 image URLs</p>
+                <p className="mt-0.5 text-[11px] font-medium text-[#6d7175]">Product ID: <span className="font-mono text-[#202223]">{editing.id}</span></p>
               </div>
               <button onClick={closeImageEditor} className="rounded-md p-1 text-[#6d7175] hover:bg-[#f6f6f7]">
                 <X className="h-5 w-5" />
