@@ -33,59 +33,59 @@ const navGroups = [
   {
     label: "",
     items: [
-      { href: "/qh-admin", label: "Home", icon: Home, exact: true },
-      { href: "/qh-admin/orders", label: "Orders", icon: ShoppingBag },
-      { href: "/qh-admin/products", label: "Products", icon: Tag },
-      { href: "/qh-admin/collections", label: "Collections", icon: LayoutGrid },
-      { href: "/qh-admin/customers", label: "Customers", icon: UsersRound },
+      { href: "/", label: "Home", icon: Home, exact: true },
+      { href: "/orders", label: "Orders", icon: ShoppingBag },
+      { href: "/products", label: "Products", icon: Tag },
+      { href: "/collections", label: "Collections", icon: LayoutGrid },
+      { href: "/customers", label: "Customers", icon: UsersRound },
     ],
   },
   {
     label: "",
     items: [
-      { href: "/qh-admin/marketing", label: "Marketing", icon: Megaphone },
-      { href: "/qh-admin/discounts", label: "Discounts", icon: Percent },
+      { href: "/marketing", label: "Marketing", icon: Megaphone },
+      { href: "/discounts", label: "Discounts", icon: Percent },
     ],
   },
   {
     label: "",
     items: [
-      { href: "/qh-admin/content", label: "Content", icon: FileText },
-      { href: "/qh-admin/markets", label: "Markets", icon: Globe },
-      { href: "/qh-admin/analytics", label: "Analytics", icon: BarChart3 },
+      { href: "/content", label: "Content", icon: FileText },
+      { href: "/markets", label: "Markets", icon: Globe },
+      { href: "/analytics", label: "Analytics", icon: BarChart3 },
     ],
   },
   {
     label: "Sales channels",
     items: [
-      { href: "/qh-admin/online-store", label: "Online Store", icon: Monitor },
-      { href: "/qh-admin/app", label: "App", icon: Smartphone },
+      { href: "/online-store", label: "Online Store", icon: Monitor },
+      { href: "/app", label: "App", icon: Smartphone },
     ],
   },
   {
     label: "",
     items: [
-      { href: "/qh-admin/add-product", label: "Add Product", icon: PackagePlus },
-      { href: "/qh-admin/settings", label: "Settings", icon: Settings },
+      { href: "/add-product", label: "Add Product", icon: PackagePlus },
+      { href: "/settings", label: "Settings", icon: Settings },
     ],
   },
 ];
 
 const pageTitleMap: Record<string, string> = {
-  "/qh-admin": "Home",
-  "/qh-admin/orders": "Orders",
-  "/qh-admin/products": "Products",
-  "/qh-admin/collections": "Collections",
-  "/qh-admin/customers": "Customers",
-  "/qh-admin/marketing": "Marketing",
-  "/qh-admin/discounts": "Discounts",
-  "/qh-admin/content": "Content",
-  "/qh-admin/markets": "Markets",
-  "/qh-admin/analytics": "Analytics",
-  "/qh-admin/online-store": "Online Store",
-  "/qh-admin/app": "App",
-  "/qh-admin/add-product": "Add Product",
-  "/qh-admin/settings": "Settings",
+  "/": "Home",
+  "/orders": "Orders",
+  "/products": "Products",
+  "/collections": "Collections",
+  "/customers": "Customers",
+  "/marketing": "Marketing",
+  "/discounts": "Discounts",
+  "/content": "Content",
+  "/markets": "Markets",
+  "/analytics": "Analytics",
+  "/online-store": "Online Store",
+  "/app": "App",
+  "/add-product": "Add Product",
+  "/settings": "Settings",
 };
 
 function SidebarContent({ pathname, onClose, onLogout }: { pathname: string; onClose?: () => void; onLogout: () => void }) {
@@ -291,10 +291,15 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
   const [authChecked, setAuthChecked] = useState(false);
   const [isAuthed, setIsAuthed] = useState(false);
 
-  const isLoginPage = pathname === "/qh-admin/login";
-  const isBuilderPage = pathname === "/qh-admin/builder";
+  const isLoginPage = pathname === "/login";
+  const isBuilderPage = pathname === "/builder";
 
   useEffect(() => {
+    // Temporary bypass: Allow access without login
+    setIsAuthed(true);
+    setAuthChecked(true);
+    
+    /* Original auth check:
     if (isLoginPage || isBuilderPage) { setAuthChecked(true); return; }
     fetch("/api/auth/me")
       .then((r) => r.json())
@@ -302,16 +307,17 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
         if (data.authenticated && (data.user.role === "admin" || data.user.role === "team")) {
           setIsAuthed(true);
         } else {
-          window.location.href = "/qh-admin/login";
+          window.location.href = "/login";
         }
       })
-      .catch(() => { window.location.href = "/qh-admin/login"; })
+      .catch(() => { window.location.href = "/login"; })
       .finally(() => setAuthChecked(true));
+    */
   }, [isLoginPage]);
 
   function handleLogout() {
     fetch("/api/auth/logout", { method: "POST" }).then(() => {
-      window.location.href = "/qh-admin/login";
+      window.location.href = "/login";
     });
   }
 

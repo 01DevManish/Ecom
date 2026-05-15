@@ -21,7 +21,7 @@ export function BottomNav() {
   const badges: Record<string, number> = { cartCount, wishlistCount };
 
   // Hide on admin/builder pages
-  const isAdmin = pathname.startsWith("/admin") || pathname.startsWith("/qh-admin");
+  const isAdmin = pathname.startsWith("/admin") || pathname.startsWith("/");
   if (isAdmin) return null;
 
   return (

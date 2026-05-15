@@ -7,7 +7,7 @@ import { BottomNav } from "@/components/layout/BottomNav";
 
 export function AppChrome({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const isAdmin = pathname.startsWith("/admin") || pathname.startsWith("/qh-admin");
+  const isAdmin = pathname.startsWith("/admin") || pathname.startsWith("/");
 
   if (isAdmin) return <main>{children}</main>;
 

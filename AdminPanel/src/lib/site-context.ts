@@ -27,26 +27,42 @@ interface SiteContextStore {
   addSite: (name: string, brandColor: string, domain?: string) => Promise<SiteConfig | null>;
 }
 
-const fallbackSite: SiteConfig = {
-  id: "quirkyhome",
-  name: "QuirkyHome",
-  domain: "quirkyhome.in",
-  logo: "QH",
-  color: "#008060",
-};
+const fallbackSites: SiteConfig[] = [
+  {
+    id: "homcot",
+    name: "HOMCOT",
+    domain: "homcot.in",
+    logo: "HC",
+    color: "#0A7A5A",
+  },
+  {
+    id: "mybedzy",
+    name: "myBEDZY",
+    domain: "mybedzy.in",
+    logo: "MB",
+    color: "#7A4B2A",
+  },
+  {
+    id: "quirkyhome",
+    name: "QuirkyHome",
+    domain: "quirkyhome.in",
+    logo: "QH",
+    color: "#008060",
+  },
+];
 
 export const useSiteContext = create<SiteContextStore>()(
   persist(
     (set, get) => ({
       activeSiteId: "quirkyhome",
-      sites: [fallbackSite],
+      sites: fallbackSites,
       isLoading: false,
 
       setActiveSite: (siteId: string) => set({ activeSiteId: siteId }),
 
       getActiveSite: () => {
         const { sites, activeSiteId } = get();
-        return sites.find((s) => s.id === activeSiteId) || sites[0] || fallbackSite;
+        return sites.find((s) => s.id === activeSiteId) || sites[0] || fallbackSites[0];
       },
 
       fetchSites: async () => {
@@ -62,7 +78,12 @@ export const useSiteContext = create<SiteContextStore>()(
               logo: s.logo_text || s.name.slice(0, 2).toUpperCase(),
               color: s.brand_color || "#008060",
             }));
-            set({ sites: mapped });
+            const currentActive = get().activeSiteId;
+            const hasActive = mapped.some((site) => site.id === currentActive);
+            set({
+              sites: mapped,
+              activeSiteId: hasActive ? currentActive : mapped[0].id,
+            });
           }
         } catch {
           // Keep existing sites on error
@@ -105,7 +126,8 @@ export const useSiteContext = create<SiteContextStore>()(
 
 /** Helper to build API URL with site_id query param */
 export function withSiteId(url: string, siteId?: string): string {
-  const id = siteId || useSiteContext.getState().activeSiteId;
+  const state = useSiteContext.getState();
+  const id = siteId || state.getActiveSite().id;
   const sep = url.includes("?") ? "&" : "?";
   return `${url}${sep}site_id=${id}`;
 }

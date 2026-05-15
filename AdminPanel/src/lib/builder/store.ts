@@ -1,40 +1,35 @@
 /**
- * QuirkyHome Visual Page Builder — Zustand Store
- * 
- * Central state for the builder. Manages:
- * - Global theme settings (colors, typography, spacing)
- * - Multiple pages, each with its own section list
- * - Active page / active section selection
- * - Add, update, reorder, remove sections
+ * QuirkyHome Visual Page Builder — Zustand Store (Shopify-style)
  */
 
 import { create } from "zustand";
 import type { BuilderSchema, PageConfig, Section, ThemeSettings } from "./types";
 import { sectionRegistry } from "./registry";
 
-/* ─── Default Theme ────────────────────────────────────────── */
+/* ─── Default Theme (matches tokens.css variable names) ─────── */
 
 const defaultTheme: ThemeSettings = {
   colors: {
-    primary: "#008060",
-    secondary: "#5c6ac4",
-    background: "#ffffff",
-    surface: "#f6f6f7",
-    text: "#1a1a1a",
-    textMuted: "#6d7175",
-    accent: "#b98900",
-    border: "#e1e3e5",
+    primary: "#111111",
+    secondary: "#5f3f00",
+    accent: "#ffd86f",
+    background: "#fffdf7",
+    surface: "#fff4cf",
+    elevated: "#ffffff",
+    text: "#111111",
+    textMuted: "#555555",
+    border: "#e8e0d0",
   },
   typography: {
-    fontFamily: "Inter, system-ui, sans-serif",
-    headingFamily: "Inter, system-ui, sans-serif",
-    baseSize: "16px",
+    fontFamily: "Arial, Helvetica, sans-serif",
+    headingFamily: "Arial, Helvetica, sans-serif",
+    baseSize: "1rem",
     headingWeight: "700",
   },
   spacing: {
-    sectionPadding: "64px",
+    sectionPadding: "3rem",
     containerMax: "1200px",
-    borderRadius: "8px",
+    borderRadius: "0.5rem",
   },
 };
 
@@ -48,81 +43,31 @@ const defaultPages: Record<string, PageConfig> = {
   home: {
     name: "Home Page",
     slug: "home",
-    sections: [
-      {
-        id: uid(),
-        type: "HeroBanner",
-        visible: true,
-        settings: sectionRegistry.find((s) => s.type === "HeroBanner")!.defaultSettings,
-      },
-      {
-        id: uid(),
-        type: "SearchBand",
-        visible: true,
-        settings: sectionRegistry.find((s) => s.type === "SearchBand")!.defaultSettings,
-      },
-      {
-        id: uid(),
-        type: "CategoryGrid",
-        visible: true,
-        settings: sectionRegistry.find((s) => s.type === "CategoryGrid")!.defaultSettings,
-      },
-      {
-        id: uid(),
-        type: "CollectionsSection",
-        visible: true,
-        settings: sectionRegistry.find((s) => s.type === "CollectionsSection")!.defaultSettings,
-      },
-      {
-        id: uid(),
-        type: "ProductGrid",
-        visible: true,
-        settings: sectionRegistry.find((s) => s.type === "ProductGrid")!.defaultSettings,
-      },
-      {
-        id: uid(),
-        type: "PromisesSection",
-        visible: true,
-        settings: sectionRegistry.find((s) => s.type === "PromisesSection")!.defaultSettings,
-      },
-      {
-        id: uid(),
-        type: "Newsletter",
-        visible: true,
-        settings: sectionRegistry.find((s) => s.type === "Newsletter")!.defaultSettings,
-      },
-      {
-        id: uid(),
-        type: "SeoArticle",
-        visible: true,
-        settings: sectionRegistry.find((s) => s.type === "SeoArticle")!.defaultSettings,
-      },
-    ],
+    sections: (() => {
+      const types = ["HeroBanner", "SearchBand", "CategoryGrid", "CollectionsSection", "ProductGrid", "PromisesSection", "Newsletter", "SeoArticle"];
+      return types.map((type) => {
+        const def = sectionRegistry.find((s) => s.type === type);
+        return def ? { id: uid(), type: def.type, visible: true, settings: { ...def.defaultSettings } } : null;
+      }).filter(Boolean) as Section[];
+    })(),
   },
 };
 
 /* ─── Store Interface ──────────────────────────────────────── */
 
 interface BuilderStore {
-  // Schema
   schema: BuilderSchema;
-
-  // UI State
   activePage: string;
   activeSection: string | null;
   sidebarTab: "sections" | "theme";
   addSectionOpen: boolean;
   isDirty: boolean;
+  deviceMode: "desktop" | "tablet" | "mobile";
 
-  // Theme actions
   updateTheme: (path: string, value: any) => void;
-
-  // Page actions
   setActivePage: (pageId: string) => void;
   addPage: (pageId: string, name: string) => void;
   removePage: (pageId: string) => void;
-
-  // Section actions
   setActiveSection: (sectionId: string | null) => void;
   addSection: (type: string) => void;
   updateSection: (sectionId: string, key: string, value: any) => void;
@@ -130,12 +75,9 @@ interface BuilderStore {
   reorderSection: (sectionId: string, direction: "up" | "down") => void;
   toggleSectionVisibility: (sectionId: string) => void;
   duplicateSection: (sectionId: string) => void;
-
-  // UI actions
   setSidebarTab: (tab: "sections" | "theme") => void;
   setAddSectionOpen: (open: boolean) => void;
-
-  // Persistence
+  setDeviceMode: (mode: "desktop" | "tablet" | "mobile") => void;
   loadSchema: (schema: BuilderSchema) => void;
   markClean: () => void;
 }
@@ -143,17 +85,14 @@ interface BuilderStore {
 /* ─── Store Implementation ─────────────────────────────────── */
 
 export const useBuilderStore = create<BuilderStore>((set, get) => ({
-  schema: {
-    themeSettings: defaultTheme,
-    pages: defaultPages,
-  },
+  schema: { themeSettings: defaultTheme, pages: defaultPages },
   activePage: "home",
   activeSection: null,
   sidebarTab: "sections",
   addSectionOpen: false,
   isDirty: false,
+  deviceMode: "desktop",
 
-  /* ── Theme ── */
   updateTheme(path, value) {
     set((state) => {
       const schema = structuredClone(state.schema);
@@ -165,10 +104,7 @@ export const useBuilderStore = create<BuilderStore>((set, get) => ({
     });
   },
 
-  /* ── Pages ── */
-  setActivePage(pageId) {
-    set({ activePage: pageId, activeSection: null });
-  },
+  setActivePage(pageId) { set({ activePage: pageId, activeSection: null }); },
 
   addPage(pageId, name) {
     set((state) => {
@@ -188,7 +124,6 @@ export const useBuilderStore = create<BuilderStore>((set, get) => ({
     });
   },
 
-  /* ── Sections ── */
   setActiveSection(sectionId) {
     set({ activeSection: sectionId, sidebarTab: sectionId ? "sections" : get().sidebarTab });
   },
@@ -199,12 +134,7 @@ export const useBuilderStore = create<BuilderStore>((set, get) => ({
     set((state) => {
       const schema = structuredClone(state.schema);
       const page = schema.pages[state.activePage];
-      const newSection: Section = {
-        id: uid(),
-        type: def.type,
-        visible: true,
-        settings: { ...def.defaultSettings },
-      };
+      const newSection: Section = { id: uid(), type: def.type, visible: true, settings: { ...def.defaultSettings } };
       page.sections.push(newSection);
       return { schema, activeSection: newSection.id, addSectionOpen: false, isDirty: true };
     });
@@ -225,11 +155,7 @@ export const useBuilderStore = create<BuilderStore>((set, get) => ({
       const schema = structuredClone(state.schema);
       const page = schema.pages[state.activePage];
       page.sections = page.sections.filter((s) => s.id !== sectionId);
-      return {
-        schema,
-        activeSection: state.activeSection === sectionId ? null : state.activeSection,
-        isDirty: true,
-      };
+      return { schema, activeSection: state.activeSection === sectionId ? null : state.activeSection, isDirty: true };
     });
   },
 
@@ -267,12 +193,15 @@ export const useBuilderStore = create<BuilderStore>((set, get) => ({
     });
   },
 
-  /* ── UI ── */
   setSidebarTab(tab) { set({ sidebarTab: tab }); },
   setAddSectionOpen(open) { set({ addSectionOpen: open }); },
+  setDeviceMode(mode) { set({ deviceMode: mode }); },
 
-  /* ── Persistence ── */
   loadSchema(schema) {
+    // Migrate old schemas missing 'elevated' / 'accent' fields
+    const c = schema.themeSettings?.colors as any;
+    if (c && !c.elevated) c.elevated = c.surface || "#ffffff";
+    if (c && !c.accent) c.accent = "#ffd86f";
     set({ schema, isDirty: false, activePage: Object.keys(schema.pages)[0] || "home", activeSection: null });
   },
   markClean() { set({ isDirty: false }); },

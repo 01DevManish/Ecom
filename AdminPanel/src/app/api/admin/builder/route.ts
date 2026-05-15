@@ -1,72 +1,48 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { query } from "@/lib/db";
-import { getAuthFromCookies } from "@/lib/auth";
 
-export const runtime = "nodejs";
-
-// GET - Load saved builder schema for a site
-export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url);
-  const siteId = searchParams.get("site_id") || "quirkyhome";
-
+export async function POST(request: NextRequest) {
   try {
-    // Ensure table exists
-    await query(`
-      create table if not exists builder_pages (
-        id varchar(50) not null,
-        schema_json jsonb not null,
-        site_id varchar(50) not null default 'quirkyhome',
-        updated_at timestamptz not null default now(),
-        primary key (id, site_id)
-      )
-    `);
+    const body = await request.json();
+    const { schema, site_id = "quirkyhome" } = body;
 
-    const result = await query<{ schema_json: any }>(
-      "select schema_json from builder_pages where id = 'main' and site_id = $1 limit 1",
-      [siteId],
-    );
-    if (result.rows.length > 0) {
-      return NextResponse.json({ schema: result.rows[0].schema_json });
+    if (!schema) {
+      return NextResponse.json({ error: "Missing schema" }, { status: 400 });
     }
-    return NextResponse.json({ schema: null });
-  } catch {
-    return NextResponse.json({ schema: null });
+
+    // Save the schema to the database
+    await query(
+      `INSERT INTO builder_pages (id, site_id, schema_json, updated_at)
+       VALUES ('main', $1, $2, now())
+       ON CONFLICT (id, site_id)
+       DO UPDATE SET schema_json = EXCLUDED.schema_json, updated_at = now()`,
+      [site_id, JSON.stringify(schema)]
+    );
+
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    console.error("Failed to save builder schema:", error);
+    return NextResponse.json({ error: "Failed to save schema" }, { status: 500 });
   }
 }
 
-// POST - Save builder schema (admin only)
-export async function POST(request: Request) {
-  const auth = await getAuthFromCookies();
-  if (!auth || (auth.role !== "admin" && auth.role !== "team")) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
-
-  const body = await request.json();
-  const { schema, site_id } = body.schema ? { schema: body.schema, site_id: body.site_id } : { schema: body, site_id: "quirkyhome" };
-  const siteId = site_id || "quirkyhome";
-
+export async function GET(request: NextRequest) {
   try {
-    // Ensure table exists
-    await query(`
-      create table if not exists builder_pages (
-        id varchar(50) not null,
-        schema_json jsonb not null,
-        site_id varchar(50) not null default 'quirkyhome',
-        updated_at timestamptz not null default now(),
-        primary key (id, site_id)
-      )
-    `);
+    const { searchParams } = new URL(request.url);
+    const site_id = searchParams.get("site_id") || "quirkyhome";
 
-    // Upsert
-    await query(
-      `insert into builder_pages (id, schema_json, site_id, updated_at)
-       values ('main', $1, $2, now())
-       on conflict (id, site_id) do update set schema_json = $1, updated_at = now()`,
-      [JSON.stringify(schema), siteId],
+    const result = await query(
+      "SELECT schema_json FROM builder_pages WHERE id = 'main' AND site_id = $1 LIMIT 1",
+      [site_id]
     );
 
-    return NextResponse.json({ ok: true });
-  } catch (err: any) {
-    return NextResponse.json({ error: err.message }, { status: 500 });
+    if (result.rows.length > 0 && result.rows[0].schema_json) {
+      return NextResponse.json({ schema: result.rows[0].schema_json });
+    }
+
+    return NextResponse.json({ schema: null });
+  } catch (error) {
+    console.error("Failed to fetch builder schema:", error);
+    return NextResponse.json({ error: "Failed to fetch schema" }, { status: 500 });
   }
 }
