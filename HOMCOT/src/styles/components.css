@@ -41,7 +41,13 @@
 }
 
 .qh-section-pad {
-  padding-block: var(--space-12);
+  padding-block: var(--space-6);
+}
+
+@media (min-width: 768px) {
+  .qh-section-pad {
+    padding-block: var(--space-8);
+  }
 }
 
 .qh-bottom-nav-safe {
@@ -163,4 +169,8 @@
   .qh-footer-grid {
     grid-template-columns: 1.4fr 1fr 1fr;
   }
+}
+
+.qh-builder-section .qh-section-pad {
+  padding-block: 0 !important;
 }
