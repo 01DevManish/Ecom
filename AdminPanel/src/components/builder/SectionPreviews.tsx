@@ -146,12 +146,26 @@ export function CollectionsSectionPreview({ settings }: { settings: Section["set
   const eyebrow = settings.eyebrow || "Collections";
   const heading = settings.heading || "Shop by collection";
   const subheading = settings.subheading || "Curated product sets to help you discover your style.";
+  const collectionSlug = settings.collectionSlug || "";
 
-  const demoCollections = [
-    { name: "Cozy Bedroom", count: 8 },
-    { name: "Modern Living", count: 12 },
-    { name: "Kitchen Essentials", count: 6 },
-  ];
+  const [selectedCol, setSelectedCol] = useState<any | null>(null);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (!collectionSlug) {
+      setSelectedCol(null);
+      return;
+    }
+    setLoading(true);
+    fetch(withSiteId(`/api/admin/collections?products=1`))
+      .then((r) => r.json())
+      .then((data) => {
+        const found = data.collections?.find((c: any) => c.slug === collectionSlug);
+        setSelectedCol(found || null);
+      })
+      .catch(() => {})
+      .finally(() => setLoading(false));
+  }, [collectionSlug]);
 
   return (
     <section className="qh-container qh-section-pad">
@@ -160,25 +174,63 @@ export function CollectionsSectionPreview({ settings }: { settings: Section["set
         <h2 className="font-display text-3xl font-black text-text-main">{heading}</h2>
         <p className="mt-3 text-base leading-relaxed text-text-muted">{subheading}</p>
       </div>
-      <div className="mt-8 grid bp-collection-grid gap-5">
-        {demoCollections.map((col) => (
-          <div key={col.name} className="qh-card overflow-hidden">
-            <div className="grid h-48 grid-cols-3 gap-px bg-background-muted">
-              {[1, 2, 3].map((i) => (
-                <div key={i} className="bg-background-soft flex items-center justify-center text-xs text-text-soft">
-                  Product {i}
+
+      {!collectionSlug ? (
+        <div className="rounded-xl border-2 border-dashed border-border p-8 text-center text-text-muted bg-background-elevated">
+          📂 Please select a collection in the sidebar settings.
+        </div>
+      ) : loading ? (
+        <div className="text-center text-text-muted py-8 bg-background-elevated rounded-xl border border-border">Loading collection preview...</div>
+      ) : selectedCol ? (
+        /* Single premium collection row layout — exactly 1 collection per row */
+        <div className="group rounded-2xl border border-border bg-background-elevated overflow-hidden shadow-soft transition-all duration-base hover:shadow-dropdown">
+          <div className="grid md:grid-cols-12 items-stretch divide-y md:divide-y-0 md:divide-x divide-border">
+            {/* Info and Banner block (left 5 columns) */}
+            <div className="md:col-span-5 p-6 flex flex-col justify-between bg-gradient-to-br from-brand-primary/5 via-transparent to-transparent">
+              <div>
+                <div className="flex flex-wrap gap-2 items-center">
+                  <span className="rounded-full bg-brand-primary/10 px-3 py-1 text-xs font-bold text-brand-primary">Collection Spotlight</span>
+                  {selectedCol.is_active === false && (
+                    <span className="rounded-full bg-[#ffe0b2] border border-[#ffb74d] px-2.5 py-0.5 text-[10px] font-bold text-[#e65100] inline-flex items-center gap-1 shadow-sm animate-pulse">
+                      ⚠️ Hidden from Storefront
+                    </span>
+                  )}
                 </div>
-              ))}
+                <h3 className="mt-4 font-display text-2xl font-black text-text-main group-hover:text-brand-primary transition-colors">{selectedCol.name}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-text-muted line-clamp-4">
+                  {selectedCol.description || "Explore our carefully handpicked items curated for high quality and beautiful aesthetics."}
+                </p>
+              </div>
+              <div className="mt-6 pt-4 border-t border-border/50 flex items-center justify-between">
+                <span className="text-xs font-semibold text-text-soft">{selectedCol.products?.length || 0} product(s) inside</span>
+                <span className="text-sm font-bold text-brand-primary group-hover:translate-x-1 transition-transform">View Collection →</span>
+              </div>
             </div>
-            <div className="p-4">
-              <h3 className="text-lg font-black text-text-main">{col.name}</h3>
-              <p className="mt-2 text-sm font-semibold text-brand-primary">
-                {col.count} products →
-              </p>
+            {/* Products grid preview (right 7 columns) */}
+            <div className="md:col-span-7 bg-background-soft p-6 flex items-center justify-center">
+              {selectedCol.products && selectedCol.products.length > 0 ? (
+                <div className="grid grid-cols-3 gap-3 w-full">
+                  {selectedCol.products.slice(0, 3).map((slug: string, i: number) => (
+                    <div key={slug} className="aspect-square bg-background-elevated rounded-xl border border-border/40 overflow-hidden relative shadow-soft">
+                      <div className="absolute inset-0 flex items-center justify-center text-[10px] text-text-soft bg-background-muted">
+                        Product {i + 1}
+                      </div>
+                      <span className="absolute top-2 left-2 rounded bg-black/60 px-1.5 py-0.5 text-[8px] font-bold text-white">#{i+1}</span>
+                    </div>
+                  ))}
+                  {selectedCol.products.length < 3 && Array.from({ length: 3 - selectedCol.products.length }).map((_, i) => (
+                    <div key={i} className="aspect-square bg-background-elevated/40 border border-dashed border-border rounded-xl" />
+                  ))}
+                </div>
+              ) : (
+                <div className="text-center text-text-soft text-sm">No products in this collection yet.</div>
+              )}
             </div>
           </div>
-        ))}
-      </div>
+        </div>
+      ) : (
+        <div className="text-center text-red-500 py-4 bg-background-elevated rounded-xl border border-border">Selected collection not found.</div>
+      )}
     </section>
   );
 }
@@ -335,12 +387,35 @@ export function NewsletterPreview({ settings }: { settings: Section["settings"] 
 /* ─── SeoArticle (matches page.tsx SEO section) ────────────── */
 
 export function SeoArticlePreview({ settings }: { settings: Section["settings"] }) {
+  const allowedTags = new Set(["h1", "h2", "h3", "h4", "h5", "h6"]);
+  const headingTag = allowedTags.has(String(settings.headingTag || "")) ? String(settings.headingTag) : "h2";
+  const subheadingTag = allowedTags.has(String(settings.subheadingTag || "")) ? String(settings.subheadingTag) : "h2";
+  const HeadingTag = headingTag as any;
+  const SubheadingTag = subheadingTag as any;
+
+  if (
+    typeof settings.content === "string" &&
+    settings.content.includes("<") &&
+    settings.content.includes(">")
+  ) {
+    return (
+      <section className="qh-container qh-section-pad">
+        <article
+          className="qh-seo-copy max-w-none rounded-lg border border-border bg-background-elevated p-6 md:p-8"
+          dangerouslySetInnerHTML={{ __html: settings.content || "" }}
+        />
+      </section>
+    );
+  }
+
   return (
     <section className="qh-container qh-section-pad">
-      <article
-        className="qh-seo-copy max-w-none rounded-lg border border-border bg-background-elevated p-6 md:p-8"
-        dangerouslySetInnerHTML={{ __html: settings.content || "" }}
-      />
+      <article className="qh-seo-copy max-w-none rounded-lg border border-border bg-background-elevated p-6 md:p-8">
+        {settings.headingText ? <HeadingTag>{String(settings.headingText)}</HeadingTag> : null}
+        {settings.content ? <p>{String(settings.content)}</p> : null}
+        {settings.subheadingText ? <SubheadingTag>{String(settings.subheadingText)}</SubheadingTag> : null}
+        {settings.content2 ? <p>{String(settings.content2)}</p> : null}
+      </article>
     </section>
   );
 }
