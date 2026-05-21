@@ -41,7 +41,13 @@
 }
 
 .qh-section-pad {
-  padding-block: var(--space-12);
+  padding-block: var(--space-6);
+}
+
+@media (min-width: 768px) {
+  .qh-section-pad {
+    padding-block: var(--space-8);
+  }
 }
 
 .qh-bottom-nav-safe {
@@ -135,6 +141,16 @@
   width: 100%;
   max-width: min(40rem, 100%);
   margin-inline: auto;
+}
+
+.no-spinner {
+  -moz-appearance: textfield;
+}
+
+.no-spinner::-webkit-outer-spin-button,
+.no-spinner::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 @media (min-width: 768px) {

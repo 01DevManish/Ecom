@@ -38,7 +38,7 @@ export default function AddProductPage() {
     const data = await response.json();
     if (!response.ok) throw new Error(data.error ?? "Failed to read existing SKUs");
     const skus = Array.isArray(data.skus) ? data.skus : [];
-    const skuSet = new Set(skus.map((sku: string) => sku.toUpperCase()));
+    const skuSet = new Set<string>(skus.map((sku: string) => sku.toUpperCase()));
     setExistingSkus(skuSet);
     return skuSet;
   }

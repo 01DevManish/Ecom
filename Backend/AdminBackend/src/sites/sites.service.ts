@@ -19,7 +19,10 @@ export class SitesService {
 
     await this.db.query(`
       insert into sites (id, name, domain, logo_text, brand_color)
-      values ('quirkyhome', 'QuirkyHome', 'quirkyhome.in', 'QH', '#008060')
+      values
+        ('homcot', 'HOMCOT', 'homcot.in', 'HC', '#0A7A5A'),
+        ('mybedzy', 'myBEDZY', 'mybedzy.in', 'MB', '#7A4B2A'),
+        ('quirkyhome', 'QuirkyHome', 'quirkyhome.in', 'QH', '#008060')
       on conflict (id) do nothing
     `);
 

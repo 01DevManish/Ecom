@@ -1,0 +1,6 @@
+{
+  "activePreset": "vibrant-sunshine",
+  "customOverrides": {
+    "--color-text-main": "#000000"
+  }
+}

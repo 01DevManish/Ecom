@@ -17,42 +17,41 @@ import type { Section, ThemeSettings } from "@/lib/builder/types";
 function StorefrontHeroBanner({ settings, theme }: { settings: Record<string, any>; theme: ThemeSettings }) {
   return (
     <section className="bg-background-elevated">
-      <div className="qh-container grid gap-6 py-6 md:qh-hero-grid md:py-10 lg:py-12">
-        <div className="flex flex-col justify-center">
+      <div className="qh-container py-4 md:py-8 lg:py-10">
+        <div className="relative overflow-hidden rounded-2xl border border-border bg-background-soft shadow-soft">
+          <img src={settings.imageUrl || "https://images.unsplash.com/photo-1618220179428-22790b461013?auto=format&fit=crop&w=1200&q=80"} alt="" className="h-[360px] w-full object-cover md:h-[480px]" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-black/10 md:from-black/55 md:via-black/25 md:to-transparent" />
+          <div className="absolute inset-0 flex items-center">
+            <div className="w-full max-w-xl p-5 md:p-10">
           {settings.badgeText && (
-            <div className="mb-5 w-fit rounded-full bg-brand-accent/10 px-3 py-1 text-xs font-bold text-brand-accent">
-              ✨ {settings.badgeText}
+                <div className="mb-4 w-fit rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-[#202223]">
+                  ✨ {settings.badgeText}
             </div>
           )}
-          <h1 className="font-display text-4xl font-black leading-tight text-text-main md:text-5xl">
-            {settings.heading}
+              <h1 className="font-display text-[1.75rem] font-black leading-tight text-white md:text-[2.9rem]">
+                {settings.heading}
           </h1>
-          <p className="mt-5 max-w-narrow text-lg leading-relaxed text-text-muted text-pretty">
-            {settings.subheading}
+              <p className="mt-3 max-w-lg text-sm leading-relaxed text-white/90 md:text-base">
+                {settings.subheading}
           </p>
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <div className="mt-6 flex flex-col gap-3 sm:flex-row">
             {settings.button1Text && (
-              <Link href={settings.button1Link || "#"} className="inline-flex h-12 items-center justify-center rounded-full bg-brand-primary px-6 font-bold text-white transition-colors hover:bg-brand-primary-hover">
+                  <Link href={settings.button1Link || "#"} className="inline-flex h-11 items-center justify-center rounded-full bg-white px-6 text-sm font-semibold text-[#202223] transition-colors hover:bg-white/90 md:h-12 md:px-8 md:text-base">
                 {settings.button1Text}
               </Link>
             )}
             {settings.button2Text && (
-              <Link href={settings.button2Link || "#"} className="inline-flex h-12 items-center justify-center rounded-full border-2 border-border bg-transparent px-6 font-bold text-text-main transition-colors hover:border-brand-primary hover:text-brand-primary">
+                  <Link href={settings.button2Link || "#"} className="inline-flex h-11 items-center justify-center rounded-full border border-white/70 bg-transparent px-6 text-sm font-semibold text-white transition-colors hover:border-white md:h-12 md:px-8 md:text-base">
                 {settings.button2Text}
               </Link>
             )}
           </div>
-          <div className="mt-8 grid grid-cols-3 gap-3 text-sm font-bold text-text-main">
-            {settings.feature1 && <div className="flex items-center gap-2">🚚 {settings.feature1}</div>}
-            {settings.feature2 && <div className="flex items-center gap-2">🛡️ {settings.feature2}</div>}
-            {settings.feature3 && <div className="flex items-center gap-2">✨ {settings.feature3}</div>}
-          </div>
-        </div>
-        <div className="relative qh-hero-media overflow-hidden rounded-lg bg-background-soft">
-          <img src={settings.imageUrl || "https://images.unsplash.com/photo-1618220179428-22790b461013?auto=format&fit=crop&w=1200&q=80"} alt="" className="h-full w-full object-cover" />
-          <div className="absolute bottom-5 left-5 rounded-lg border border-border bg-background-elevated p-4 shadow-dropdown">
-            <p className="text-sm font-bold text-brand-primary">Up to 60% Off</p>
-            <p className="text-sm text-text-muted">Bedding, lamps, wall art and more</p>
+              <div className="mt-6 grid grid-cols-3 gap-3 text-[11px] font-bold text-white/95 md:text-sm">
+                {settings.feature1 && <div className="flex items-center gap-2">🚚 {settings.feature1}</div>}
+                {settings.feature2 && <div className="flex items-center gap-2">🛡️ {settings.feature2}</div>}
+                {settings.feature3 && <div className="flex items-center gap-2">✨ {settings.feature3}</div>}
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -170,12 +169,36 @@ function StorefrontNewsletterVaaree({ settings }: { settings: Record<string, any
 
 /* ─── SeoArticle ───────────────────────────────────────────── */
 function StorefrontSeoArticle({ settings }: { settings: Record<string, any> }) {
+  const allowedTags = new Set(["h1", "h2", "h3", "h4", "h5", "h6"]);
+  const headingTag = allowedTags.has(settings.headingTag) ? settings.headingTag : "h2";
+  const subheadingTag = allowedTags.has(settings.subheadingTag) ? settings.subheadingTag : "h2";
+  const HeadingTag = headingTag as any;
+  const SubheadingTag = subheadingTag as any;
+
+  // Backward compatibility for previously saved raw HTML.
+  if (
+    typeof settings.content === "string" &&
+    settings.content.includes("<") &&
+    settings.content.includes(">")
+  ) {
+    return (
+      <section className="qh-container qh-section-pad">
+        <article
+          className="qh-seo-copy max-w-none rounded-lg border border-border bg-background-elevated p-6 md:p-8"
+          dangerouslySetInnerHTML={{ __html: settings.content }}
+        />
+      </section>
+    );
+  }
+
   return (
     <section className="qh-container qh-section-pad">
-      <article 
-        className="qh-seo-copy max-w-none rounded-lg border border-border bg-background-elevated p-6 md:p-8"
-        dangerouslySetInnerHTML={{ __html: settings.content }}
-      />
+      <article className="qh-seo-copy max-w-none rounded-lg border border-border bg-background-elevated p-6 md:p-8">
+        {settings.headingText ? <HeadingTag>{settings.headingText}</HeadingTag> : null}
+        {settings.content ? <p>{settings.content}</p> : null}
+        {settings.subheadingText ? <SubheadingTag>{settings.subheadingText}</SubheadingTag> : null}
+        {settings.content2 ? <p>{settings.content2}</p> : null}
+      </article>
     </section>
   );
 }
@@ -287,7 +310,7 @@ export function RenderSection({ section, theme }: RenderSectionProps) {
 export function RenderSections({ sections, theme }: { sections: Section[]; theme: ThemeSettings }) {
   return (
     <>
-      {sections.filter((s) => s.visible).map((section) => (
+      {sections.filter((s) => s.visible && s.type !== "BannerStrip").map((section) => (
         <RenderSection key={section.id} section={section} theme={theme} />
       ))}
     </>

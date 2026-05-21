@@ -10,6 +10,16 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  async rewrites() {
+    return {
+      beforeFiles: [
+        {
+          source: '/api/auth/:path*',
+          destination: 'http://localhost:4003/api/auth/:path*',
+        },
+      ],
+    };
+  },
 };
 
 export default nextConfig;

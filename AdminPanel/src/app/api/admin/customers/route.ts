@@ -3,8 +3,33 @@ import { query } from "@/lib/db";
 
 export const runtime = "nodejs";
 
+async function ensureCustomerWishlistTables() {
+  await query(`
+    create table if not exists customer_wishlists (
+      id uuid primary key default gen_random_uuid(),
+      user_id uuid not null unique references users(id) on delete cascade,
+      created_at timestamptz not null default now(),
+      updated_at timestamptz not null default now()
+    )
+  `);
+  await query(`
+    create table if not exists customer_wishlist_items (
+      id uuid primary key default gen_random_uuid(),
+      wishlist_id uuid not null references customer_wishlists(id) on delete cascade,
+      product_slug varchar(260) not null,
+      product_title varchar(220) not null,
+      product_image text,
+      unit_price numeric(12,2),
+      created_at timestamptz not null default now(),
+      updated_at timestamptz not null default now(),
+      unique (wishlist_id, product_slug)
+    )
+  `);
+}
+
 export async function GET(request: NextRequest) {
   try {
+    await ensureCustomerWishlistTables();
     const { searchParams } = new URL(request.url);
     const search = searchParams.get("search") || "";
 
@@ -53,7 +78,7 @@ export async function GET(request: NextRequest) {
         )) as wishlist_items
         from customer_wishlists cw
         join customer_wishlist_items cwi on cwi.wishlist_id = cw.id
-        where cw.user_id = u.id::varchar
+        where cw.user_id = u.id
       ) wish on true
     `;
 

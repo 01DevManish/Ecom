@@ -58,4 +58,8 @@ export class AuthService {
     if (cleaned.length === 10) return `+91${cleaned}`;
     return cleaned;
   }
+
+  hashOtp(phone: string, otp: string): string {
+    return createHash('sha256').update(`${phone}:${otp}:${this.getSecret()}`).digest('hex');
+  }
 }

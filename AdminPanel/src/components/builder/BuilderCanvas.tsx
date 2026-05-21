@@ -59,6 +59,9 @@ export function BuilderCanvas() {
   };
 
   const { width: canvasWidth, label: deviceLabel } = deviceConfig[deviceMode] || deviceConfig.desktop;
+  const visibleSections = page.sections.filter((section) => section.visible);
+  const topBanner = visibleSections.find((section) => section.type === "BannerStrip");
+  const mainSections = visibleSections.filter((section) => section.type !== "BannerStrip");
 
   return (
     <div className="flex-1 overflow-auto bg-[#e8e8e8]" onClick={() => setActiveSection(null)}>
@@ -91,7 +94,7 @@ export function BuilderCanvas() {
           } as React.CSSProperties}
           className="builder-preview-container overflow-hidden rounded-lg"
         >
-          {page.sections.length === 0 ? (
+          {visibleSections.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-32 text-sm text-gray-400">
               <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                 <rect x="3" y="3" width="18" height="18" rx="2" />
@@ -101,22 +104,45 @@ export function BuilderCanvas() {
               <p className="mt-3">No sections yet — click <strong>Add section</strong> to start building</p>
             </div>
           ) : (
-            page.sections.map((section) => {
-              if (!section.visible) return null;
+            <>
+              {topBanner ? (
+                <div
+                  onClick={(e) => { e.stopPropagation(); setActiveSection(topBanner.id); }}
+                  className={`group/section qh-builder-section relative cursor-pointer transition-all duration-150 ${topBanner.id === activeSection ? "" : "hover:outline hover:outline-2 hover:outline-[#5c6ac4]/30 hover:outline-offset-[-2px]"}`}
+                  style={{
+                    outline: topBanner.id === activeSection ? "2px solid #5c6ac4" : undefined,
+                    outlineOffset: topBanner.id === activeSection ? "-2px" : undefined,
+                  }}
+                >
+                  {(() => {
+                    const BannerComponent = sectionComponentMap[topBanner.type];
+                    if (!BannerComponent) return null;
+                    return <BannerComponent settings={topBanner.settings} />;
+                  })()}
+                </div>
+              ) : null}
+
+              {mainSections.map((section) => {
               const Component = sectionComponentMap[section.type];
               if (!Component) return null;
               const isActive = section.id === activeSection;
               const def = getSectionDef(section.type);
 
-              return (
+              const s = section.settings;
+              const wrapperStyle: React.CSSProperties = {
+                outline: isActive ? "2px solid #5c6ac4" : undefined,
+                outlineOffset: isActive ? "-2px" : undefined,
+              };
+              if (s.sectionPaddingTop !== undefined) wrapperStyle.paddingTop = `${s.sectionPaddingTop}px`;
+              if (s.sectionPaddingBottom !== undefined) wrapperStyle.paddingBottom = `${s.sectionPaddingBottom}px`;
+              if (s.sectionBgColor) wrapperStyle.backgroundColor = s.sectionBgColor;
+
+                return (
                 <div
                   key={section.id}
                   onClick={(e) => { e.stopPropagation(); setActiveSection(section.id); }}
-                  className={`group/section relative cursor-pointer transition-all duration-150 ${isActive ? "" : "hover:outline hover:outline-2 hover:outline-[#5c6ac4]/30 hover:outline-offset-[-2px]"}`}
-                  style={{
-                    outline: isActive ? "2px solid #5c6ac4" : undefined,
-                    outlineOffset: isActive ? "-2px" : undefined,
-                  }}
+                  className={`group/section qh-builder-section relative cursor-pointer transition-all duration-150 ${isActive ? "" : "hover:outline hover:outline-2 hover:outline-[#5c6ac4]/30 hover:outline-offset-[-2px]"}`}
+                  style={wrapperStyle}
                 >
                   {isActive && (
                     <div className="absolute -top-3 right-3 z-30 flex items-center gap-1 overflow-hidden rounded-md border border-[#4959b3] bg-[#5c6ac4] shadow-lg">
@@ -141,8 +167,9 @@ export function BuilderCanvas() {
                   )}
                   <Component settings={section.settings} />
                 </div>
-              );
-            })
+                );
+              })}
+            </>
           )}
         </div>
       </div>

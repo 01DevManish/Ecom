@@ -82,6 +82,8 @@ function FieldInput({ field, value, onChange }: { field: FieldSchema; value: any
       );
     case "product-list":
       return <ProductListPicker value={value || []} onChange={onChange} />;
+    case "collection-select":
+      return <CollectionSelectPicker value={value ?? ""} onChange={onChange} />;
     case "alignment":
       return <AlignmentPicker value={value ?? "center"} onChange={onChange} />;
     case "spacing":
@@ -271,6 +273,42 @@ function ProductListPicker({ value, onChange }: { value: string[]; onChange: (va
   );
 }
 
+function CollectionSelectPicker({ value, onChange }: { value: string; onChange: (val: string) => void }) {
+  const [collections, setCollections] = React.useState<any[]>([]);
+  const [loading, setLoading] = React.useState(false);
+
+  React.useEffect(() => {
+    async function load() {
+      setLoading(true);
+      try {
+        const res = await fetch(withSiteId("/api/admin/collections"));
+        const data = await res.json();
+        setCollections(Array.isArray(data.collections) ? data.collections : []);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    }
+    load();
+  }, []);
+
+  const base = "w-full rounded-lg border border-[#c9cccf] bg-white px-3 py-2 text-[13px] text-[#202223] transition-colors focus:border-[#5c6ac4] focus:outline-none focus:ring-2 focus:ring-[#5c6ac4]/20";
+
+  if (loading) return <div className="text-[12px] text-[#8c9196] py-1">Loading collections...</div>;
+
+  return (
+    <select value={value ?? ""} onChange={(e) => onChange(e.target.value)} className={base}>
+      <option value="">-- Select Collection --</option>
+      {collections.map((col: any) => (
+        <option key={col.id} value={col.slug}>
+          {col.name} ({col.slug})
+        </option>
+      ))}
+    </select>
+  );
+}
+
 /* ─── Section Editor ───────────────────────────────────────── */
 
 function SectionEditor({ section }: { section: Section }) {
@@ -349,95 +387,33 @@ function SectionEditor({ section }: { section: Section }) {
 /* ─── Theme Editor ─────────────────────────────────────────── */
 
 function ThemeEditor() {
-  const theme = useBuilderStore((s) => s.schema.themeSettings);
-  const updateTheme = useBuilderStore((s) => s.updateTheme);
-  const [openGroup, setOpenGroup] = useState<string | null>("colors");
-
-  const groups = [
-    {
-      id: "colors", label: "Colors", icon: "🎨",
-      fields: [
-        { path: "colors.primary", label: "Primary" },
-        { path: "colors.secondary", label: "Secondary" },
-        { path: "colors.accent", label: "Accent" },
-        { path: "colors.background", label: "Background" },
-        { path: "colors.surface", label: "Surface" },
-        { path: "colors.elevated", label: "Elevated / Card" },
-        { path: "colors.text", label: "Text" },
-        { path: "colors.textMuted", label: "Text Muted" },
-        { path: "colors.border", label: "Border" },
-      ],
-    },
-    {
-      id: "typography", label: "Typography", icon: "Aa",
-      fields: [
-        { path: "typography.fontFamily", label: "Body Font", type: "text" as const },
-        { path: "typography.headingFamily", label: "Heading Font", type: "text" as const },
-        { path: "typography.baseSize", label: "Base Size", type: "text" as const },
-        { path: "typography.headingWeight", label: "Heading Weight", type: "select" as const, options: [
-          { label: "Normal (400)", value: "400" },
-          { label: "Medium (500)", value: "500" },
-          { label: "Semi-bold (600)", value: "600" },
-          { label: "Bold (700)", value: "700" },
-          { label: "Extra Bold (800)", value: "800" },
-        ]},
-      ],
-    },
-    {
-      id: "spacing", label: "Layout", icon: "📐",
-      fields: [
-        { path: "spacing.sectionPadding", label: "Section Padding" },
-        { path: "spacing.containerMax", label: "Max Width" },
-        { path: "spacing.borderRadius", label: "Border Radius" },
-      ],
-    },
-  ];
-
-  function getVal(path: string): any {
-    const keys = path.split(".");
-    let obj: any = theme;
-    for (const k of keys) obj = obj?.[k];
-    return obj;
-  }
-
   return (
-    <div className="grid gap-1">
-      <h3 className="mb-2 text-[13px] font-semibold uppercase tracking-wide text-[#202223]">Theme Settings</h3>
-      {groups.map((group) => (
-        <div key={group.id} className="rounded-lg border border-[#e1e3e5] bg-white overflow-hidden">
-          <button
-            onClick={() => setOpenGroup(openGroup === group.id ? null : group.id)}
-            className="flex w-full items-center justify-between px-4 py-3 text-left transition-colors hover:bg-[#f9fafb]"
-          >
-            <div className="flex items-center gap-2.5">
-              <span className="text-[14px]">{group.icon}</span>
-              <span className="text-[13px] font-semibold text-[#202223]">{group.label}</span>
-            </div>
-            <ChevronRight className={`h-4 w-4 text-[#8c9196] transition-transform ${openGroup === group.id ? "rotate-90" : ""}`} />
-          </button>
-          {openGroup === group.id && (
-            <div className="border-t border-[#e1e3e5] px-4 py-3 grid gap-3">
-              {group.fields.map((f) => (
-                <div key={f.path}>
-                  <label className="mb-1 block text-[12px] font-medium text-[#6d7175]">{f.label}</label>
-                  {group.id === "colors" ? (
-                    <div className="flex items-center gap-2">
-                      <input type="color" value={getVal(f.path) ?? "#000"} onChange={(e) => updateTheme(f.path, e.target.value)} className="h-8 w-10 cursor-pointer rounded-md border border-[#c9cccf] p-0.5" />
-                      <input type="text" value={getVal(f.path) ?? ""} onChange={(e) => updateTheme(f.path, e.target.value)} className="flex-1 rounded-lg border border-[#c9cccf] bg-white px-3 py-1.5 text-[13px] font-mono text-[#202223] focus:border-[#5c6ac4] focus:outline-none" />
-                    </div>
-                  ) : (f as any).type === "select" ? (
-                    <select value={getVal(f.path) ?? ""} onChange={(e) => updateTheme(f.path, e.target.value)} className="w-full rounded-lg border border-[#c9cccf] bg-white px-3 py-2 text-[13px] focus:border-[#5c6ac4] focus:outline-none">
-                      {(f as any).options?.map((o: any) => <option key={o.value} value={o.value}>{o.label}</option>)}
-                    </select>
-                  ) : (
-                    <input type="text" value={getVal(f.path) ?? ""} onChange={(e) => updateTheme(f.path, e.target.value)} className="w-full rounded-lg border border-[#c9cccf] bg-white px-3 py-2 text-[13px] focus:border-[#5c6ac4] focus:outline-none" />
-                  )}
-                </div>
-              ))}
-            </div>
-          )}
+    <div className="grid gap-4">
+      <div className="rounded-xl border-2 border-dashed border-violet-200 bg-gradient-to-br from-violet-50/80 to-fuchsia-50/80 p-6 text-center">
+        <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-violet-500 to-fuchsia-500 text-white shadow-lg">
+          <Palette className="h-7 w-7" />
         </div>
-      ))}
+        <h3 className="text-[15px] font-bold text-[#202223]">Theme Editor</h3>
+        <p className="mt-2 text-[12px] leading-relaxed text-[#6d7175]">
+          Theme colors, typography and border radius are controlled from the dedicated Theme Settings page. Changes apply to the entire storefront.
+        </p>
+        <a
+          href="/settings/theme"
+          className="mt-4 inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-violet-500 to-fuchsia-500 px-5 py-2.5 text-[13px] font-bold text-white shadow-lg transition-all hover:shadow-xl hover:brightness-110"
+        >
+          <Palette className="h-4 w-4" />
+          Open Theme Settings
+        </a>
+      </div>
+      <div className="rounded-lg border border-[#e1e3e5] bg-[#f9fafb] p-4">
+        <p className="text-[11px] font-semibold uppercase tracking-wide text-[#8c9196]">How it works</p>
+        <ul className="mt-2 grid gap-1.5 text-[12px] text-[#6d7175]">
+          <li className="flex items-start gap-2"><span className="mt-0.5 text-violet-400">●</span> Pick a preset theme (5 options)</li>
+          <li className="flex items-start gap-2"><span className="mt-0.5 text-violet-400">●</span> Customize any color with the swatch picker</li>
+          <li className="flex items-start gap-2"><span className="mt-0.5 text-violet-400">●</span> Change fonts and border radius</li>
+          <li className="flex items-start gap-2"><span className="mt-0.5 text-violet-400">●</span> Click "Save & Apply" — storefront updates instantly</li>
+        </ul>
+      </div>
     </div>
   );
 }

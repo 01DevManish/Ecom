@@ -21,9 +21,7 @@ export function Header() {
   return (
     <>
       <header className="sticky top-0 z-header border-b border-border qh-header-surface backdrop-blur">
-        <div className="hidden md:block">
-          <AnnouncementBar />
-        </div>
+        <AnnouncementBar />
         <div className="qh-mobile-header md:hidden">
           <MobileMenuTrigger onOpen={() => setMenuOpen(true)} />
           <SearchBar compact withCamera placeholder="Search for Photo frames" className="min-w-0 flex-1" />

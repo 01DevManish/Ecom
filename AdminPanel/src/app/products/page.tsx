@@ -1,7 +1,8 @@
-﻿"use client";
+"use client";
 
 import Image from "next/image";
-import { AlertCircle, Images, Save, Search, Trash2, X } from "lucide-react";
+import Link from "next/link";
+import { AlertCircle, Edit3, Search, Trash2, X } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { formatPrice } from "@/data/products";
 import { useSiteContext, withSiteId } from "@/lib/site-context";
@@ -20,19 +21,12 @@ type AdminProduct = {
   is_active: boolean;
 };
 
-const MAX_IMAGES = 10;
-
 export default function AdminProductsPage() {
   const activeSiteId = useSiteContext((s) => s.activeSiteId);
   const [products, setProducts] = useState<AdminProduct[]>([]);
   const [message, setMessage] = useState("");
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
-
-  const [editing, setEditing] = useState<AdminProduct | null>(null);
-  const [imageInputs, setImageInputs] = useState<string[]>(Array(MAX_IMAGES).fill(""));
-  const [imageLoading, setImageLoading] = useState(false);
-  const [imageSaving, setImageSaving] = useState(false);
 
   async function loadProducts() {
     setLoading(true);
@@ -43,6 +37,7 @@ export default function AdminProductsPage() {
   }
 
   async function deleteProduct(id: string) {
+    if (!confirm("Delete this product from PostgreSQL?")) return;
     setMessage("");
     const response = await fetch(withSiteId(`/api/admin/products?id=${encodeURIComponent(id)}`), { method: "DELETE" });
     const data = await response.json();
@@ -50,7 +45,6 @@ export default function AdminProductsPage() {
       setMessage(data.error ?? "Failed to delete product");
       return;
     }
-
     setMessage("Product deleted from PostgreSQL. DynamoDB was not touched.");
     await loadProducts();
   }
@@ -64,77 +58,8 @@ export default function AdminProductsPage() {
       setMessage(data.error ?? "Failed to clear products");
       return;
     }
-
     setMessage("All PostgreSQL products cleared. Import fresh products from DynamoDB.");
     await loadProducts();
-  }
-
-  async function openImageEditor(product: AdminProduct) {
-    setEditing(product);
-    setImageLoading(true);
-    try {
-      const response = await fetch(withSiteId(`/api/admin/products?id=${encodeURIComponent(product.id)}`));
-      const data = await response.json();
-      if (!response.ok) throw new Error(data.error || "Failed to load product images");
-
-      const gallery = Array.isArray(data.gallery_images) ? data.gallery_images : [];
-      const next = [...gallery.slice(0, MAX_IMAGES)];
-      while (next.length < MAX_IMAGES) next.push("");
-      setImageInputs(next);
-    } catch (err) {
-      setMessage(err instanceof Error ? err.message : "Failed to load images");
-      setImageInputs(Array(MAX_IMAGES).fill(""));
-    } finally {
-      setImageLoading(false);
-    }
-  }
-
-  function closeImageEditor() {
-    setEditing(null);
-    setImageInputs(Array(MAX_IMAGES).fill(""));
-    setImageLoading(false);
-    setImageSaving(false);
-  }
-
-  function updateImageAt(index: number, value: string) {
-    setImageInputs((current) => {
-      const next = [...current];
-      next[index] = value;
-      return next;
-    });
-  }
-
-  const previewImages = useMemo(() => imageInputs.map((x) => x.trim()).filter(Boolean), [imageInputs]);
-
-  async function saveImages() {
-    if (!editing) return;
-
-    const cleaned = previewImages.slice(0, MAX_IMAGES);
-    if (cleaned.length === 0) {
-      setMessage("At least one image URL is required.");
-      return;
-    }
-
-    setImageSaving(true);
-    setMessage("");
-
-    try {
-      const response = await fetch(withSiteId("/api/admin/products"), {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id: editing.id, images: cleaned }),
-      });
-      const data = await response.json();
-      if (!response.ok) throw new Error(data.error || "Failed to save images");
-
-      setMessage(`${editing.title}: ${cleaned.length} images saved.`);
-      await loadProducts();
-      closeImageEditor();
-    } catch (err) {
-      setMessage(err instanceof Error ? err.message : "Failed to save images");
-    } finally {
-      setImageSaving(false);
-    }
   }
 
   useEffect(() => {
@@ -170,6 +95,7 @@ export default function AdminProductsPage() {
         <div className="flex items-center gap-2 rounded-lg border border-[#b6d3b2] bg-[#e3f1df] px-4 py-3 text-[13px] font-medium text-[#202223]">
           <AlertCircle className="h-4 w-4 shrink-0 text-[#008060]" />
           {message}
+          <button onClick={() => setMessage("")} className="ml-auto"><X className="h-3.5 w-3.5" /></button>
         </div>
       )}
 
@@ -216,10 +142,13 @@ export default function AdminProductsPage() {
                 <p className="hidden text-right text-[13px] font-medium text-[#202223] md:block">{formatPrice(Number(product.sale_price ?? product.mrp ?? 0))}</p>
                 <p className="hidden text-right text-[13px] text-[#6d7175] md:block">{product.quantity_available ?? 0}</p>
                 <div className="flex items-center justify-end gap-2">
-                  <button onClick={() => openImageEditor(product)} className="inline-flex items-center gap-1.5 rounded-md border border-[#d6d9dc] bg-white px-2.5 py-1.5 text-[12px] font-semibold text-[#202223] hover:bg-[#f6f6f7]">
-                    <Images className="h-3.5 w-3.5" />
-                    Edit Images
-                  </button>
+                  <Link
+                    href={`/products/${product.id}`}
+                    className="inline-flex items-center gap-1.5 rounded-md border border-[#d6d9dc] bg-white px-3 py-1.5 text-[12px] font-semibold text-[#202223] transition-all hover:border-[#008060] hover:bg-[#f0fdf9] hover:text-[#008060]"
+                  >
+                    <Edit3 className="h-3.5 w-3.5" />
+                    Edit
+                  </Link>
                   <button onClick={() => deleteProduct(product.id)} className="flex h-8 w-8 items-center justify-center rounded-md border border-transparent text-[#8c9196] transition-all hover:border-[#d72c0d] hover:bg-[#fff4f4] hover:text-[#d72c0d]" title="Delete product">
                     <Trash2 className="h-4 w-4" />
                   </button>
@@ -229,56 +158,6 @@ export default function AdminProductsPage() {
           </div>
         )}
       </div>
-
-      {editing && (
-        <div className="fixed inset-0 z-50 flex items-end bg-black/40 p-0 md:items-center md:justify-center md:p-6">
-          <div className="w-full rounded-t-2xl bg-white md:max-w-4xl md:rounded-2xl">
-            <div className="flex items-center justify-between border-b border-[#e1e3e5] px-5 py-4">
-              <div>
-                <h3 className="text-[18px] font-semibold text-[#202223]">Edit Product Images</h3>
-                <p className="text-[12px] text-[#6d7175]">{editing.title} · up to 10 image URLs</p>
-                <p className="mt-0.5 text-[11px] font-medium text-[#6d7175]">Product ID: <span className="font-mono text-[#202223]">{editing.id}</span></p>
-              </div>
-              <button onClick={closeImageEditor} className="rounded-md p-1 text-[#6d7175] hover:bg-[#f6f6f7]">
-                <X className="h-5 w-5" />
-              </button>
-            </div>
-
-            <div className="grid gap-5 p-5 md:grid-cols-2">
-              <div className="grid gap-2">
-                {Array.from({ length: MAX_IMAGES }).map((_, index) => (
-                  <input key={index} type="url" value={imageInputs[index]} onChange={(e) => updateImageAt(index, e.target.value)} placeholder={`Image URL ${index + 1}`} className="rounded-md border border-[#c9cccf] px-3 py-2 text-[13px] focus:border-[#008060] focus:outline-none focus:ring-2 focus:ring-[#008060]/20" />
-                ))}
-              </div>
-
-              <div>
-                <p className="mb-2 text-[12px] font-semibold uppercase tracking-wide text-[#6d7175]">Preview ({previewImages.length})</p>
-                <div className="grid max-h-[360px] grid-cols-3 gap-2 overflow-auto rounded-lg border border-[#e1e3e5] bg-[#fafbfc] p-2">
-                  {imageLoading ? (
-                    <div className="col-span-3 py-8 text-center text-[13px] text-[#8c9196]">Loading images...</div>
-                  ) : previewImages.length > 0 ? (
-                    previewImages.map((src, i) => (
-                      <div key={`${src}-${i}`} className="relative aspect-square overflow-hidden rounded-md border border-[#e1e3e5] bg-white">
-                        <Image src={src} alt={`Preview ${i + 1}`} fill sizes="160px" className="object-cover" />
-                      </div>
-                    ))
-                  ) : (
-                    <div className="col-span-3 py-8 text-center text-[13px] text-[#8c9196]">Add image URLs to preview.</div>
-                  )}
-                </div>
-              </div>
-            </div>
-
-            <div className="flex items-center justify-end gap-2 border-t border-[#e1e3e5] px-5 py-4">
-              <button onClick={closeImageEditor} className="rounded-md border border-[#d6d9dc] bg-white px-4 py-2 text-[13px] font-semibold text-[#202223] hover:bg-[#f6f6f7]">Cancel</button>
-              <button onClick={saveImages} disabled={imageSaving || imageLoading} className="inline-flex items-center gap-1.5 rounded-md bg-[#008060] px-4 py-2 text-[13px] font-semibold text-white hover:bg-[#006e52] disabled:opacity-50">
-                <Save className="h-4 w-4" />
-                {imageSaving ? "Saving..." : "Save Images"}
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

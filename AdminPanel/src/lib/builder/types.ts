@@ -103,6 +103,7 @@ export type FieldType =
   | "url"
   | "toggle"
   | "product-list"
+  | "collection-select"
   | "alignment"
   | "spacing"
   | "media-array";

@@ -248,7 +248,7 @@
 
 @container (min-width: 900px) {
   .builder-preview-container .qh-section-pad {
-    padding-block: var(--space-12);
+    padding-block: var(--space-8);
   }
 }
 
@@ -330,4 +330,8 @@
   .builder-preview-container .bp-text-base {
     font-size: 0.8125rem;
   }
+}
+
+.builder-preview-container .qh-builder-section .qh-section-pad {
+  padding-block: 0 !important;
 }

@@ -187,12 +187,18 @@ export default function ThemeSettingsPage() {
   async function handleSave() {
     setSaving(true); setSaved(false);
     try {
-      await fetch("/api/theme", {
+      const res = await fetch("/api/theme", {
         method: "PUT", headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ activePreset, customOverrides }),
       });
+      if (!res.ok) throw new Error("Theme save failed");
+      const data = await res.json();
+      if (data?.warning) throw new Error(String(data.warning));
       setSaved(true); setTimeout(() => setSaved(false), 3000);
-    } catch {} finally { setSaving(false); }
+    } catch (err) {
+      console.error("Failed to save theme:", err);
+      alert("Theme save failed. Please retry.");
+    } finally { setSaving(false); }
   }
 
   if (loading) return <div className="flex items-center justify-center py-20"><Loader2 className="h-6 w-6 animate-spin text-[#999]" /></div>;

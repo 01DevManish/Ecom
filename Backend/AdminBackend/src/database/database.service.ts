@@ -1,17 +1,15 @@
-/**
- * Shared Database Service — connects to NeonDB
- * Injected into all NestJS modules
- */
 import { Injectable, OnModuleDestroy } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { Pool } from 'pg';
 
 @Injectable()
 export class DatabaseService implements OnModuleDestroy {
   private pool: Pool;
 
-  constructor() {
+  constructor(private configService: ConfigService) {
+    const connectionString = this.configService.get<string>('DATABASE_URL');
     this.pool = new Pool({
-      connectionString: process.env.DATABASE_URL,
+      connectionString,
       ssl: { rejectUnauthorized: false },
       max: 10,
     });

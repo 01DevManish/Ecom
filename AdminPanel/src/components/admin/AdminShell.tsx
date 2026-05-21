@@ -290,30 +290,17 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [authChecked, setAuthChecked] = useState(false);
   const [isAuthed, setIsAuthed] = useState(false);
+  const [userRole, setUserRole] = useState<"admin" | "team" | null>(null);
 
   const isLoginPage = pathname === "/login";
   const isBuilderPage = pathname === "/builder";
 
   useEffect(() => {
-    // Temporary bypass: Allow access without login
+    // Temporary bypass: allow admin panel without login for now.
     setIsAuthed(true);
+    setUserRole("admin");
     setAuthChecked(true);
-    
-    /* Original auth check:
-    if (isLoginPage || isBuilderPage) { setAuthChecked(true); return; }
-    fetch("/api/auth/me")
-      .then((r) => r.json())
-      .then((data) => {
-        if (data.authenticated && (data.user.role === "admin" || data.user.role === "team")) {
-          setIsAuthed(true);
-        } else {
-          window.location.href = "/login";
-        }
-      })
-      .catch(() => { window.location.href = "/login"; })
-      .finally(() => setAuthChecked(true));
-    */
-  }, [isLoginPage]);
+  }, [isLoginPage, isBuilderPage]);
 
   function handleLogout() {
     fetch("/api/auth/logout", { method: "POST" }).then(() => {
@@ -371,6 +358,18 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
             <div className="flex-1">
               <h1 className="text-lg font-semibold text-[#202223]">{pageTitle}</h1>
             </div>
+            {userRole ? (
+              <span
+                className={cn(
+                  "hidden rounded-full px-3 py-1 text-xs font-semibold sm:inline-flex",
+                  userRole === "admin"
+                    ? "bg-[#e3f1df] text-[#1f6f45]"
+                    : "bg-[#e8eefc] text-[#2d4fb3]",
+                )}
+              >
+                {userRole === "admin" ? "Admin" : "Employee"}
+              </span>
+            ) : null}
             <Link
               href="/"
               className="hidden items-center gap-1.5 rounded-md border border-[#c9cccf] bg-white px-3 py-1.5 text-[13px] font-semibold text-[#202223] shadow-[0_1px_0_rgba(0,0,0,0.05)] transition-all hover:bg-[#f6f6f7] sm:inline-flex"

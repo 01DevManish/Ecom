@@ -1,15 +1,18 @@
 import { NextRequest, NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
+import { query } from "@/lib/db";
 
 const THEME_FILE = path.resolve(process.cwd(), "..", "theme-config.json");
+const DEFAULT_THEME = { activePreset: "vibrant-sunshine", customOverrides: {} };
+const SITE_ID = "quirkyhome";
 
 function readConfig() {
   try {
     const raw = fs.readFileSync(THEME_FILE, "utf-8");
     return JSON.parse(raw);
   } catch {
-    return { activePreset: "vibrant-sunshine", customOverrides: {} };
+    return DEFAULT_THEME;
   }
 }
 
@@ -17,28 +20,96 @@ function writeConfig(config: Record<string, unknown>) {
   fs.writeFileSync(THEME_FILE, JSON.stringify(config, null, 2), "utf-8");
 }
 
-/** GET /api/theme — Read current theme config */
-export async function GET() {
-  const config = readConfig();
-  return NextResponse.json(config);
+async function upsertThemeIntoBuilder(config: { activePreset: string; customOverrides: Record<string, string> }) {
+  const result = await query<{ schema_json: any }>(
+    "select schema_json from builder_pages where id = 'main' and site_id = $1 limit 1",
+    [SITE_ID],
+  );
+
+  const schema = result.rows[0]?.schema_json || {
+    themeSettings: {},
+    pages: { home: { name: "Home Page", slug: "home", sections: [] } },
+  };
+
+  schema.themeSettings = schema.themeSettings || {};
+  schema.themeSettings.activePreset = config.activePreset;
+  schema.themeSettings.customOverrides = config.customOverrides;
+
+  await query(
+    `insert into builder_pages (id, schema_json, site_id, updated_at)
+     values ('main', $1, $2, now())
+     on conflict (id, site_id) do update
+     set schema_json = $1, updated_at = now()`,
+    [JSON.stringify(schema), SITE_ID],
+  );
 }
 
-/** PUT /api/theme — Save theme config */
-export async function PUT(request: NextRequest) {
-  try {
-    const body = await request.json();
-    const config = readConfig();
+/** GET /api/theme - Read current theme config */
+export async function GET() {
+  const fileConfig = readConfig();
 
-    if (body.activePreset) {
-      config.activePreset = body.activePreset;
+  try {
+    const result = await query<{ schema_json: any }>(
+      "select schema_json from builder_pages where id = 'main' and site_id = $1 limit 1",
+      [SITE_ID],
+    );
+
+    const schema = result.rows[0]?.schema_json;
+    const theme = schema?.themeSettings || {};
+
+    // Legacy compatibility: if DB does not have preset keys yet, bootstrap from file/default.
+    const hasPresetKeys = Boolean(theme.activePreset) || theme.customOverrides !== undefined;
+    if (!hasPresetKeys) {
+      const bootstrap = {
+        activePreset: fileConfig.activePreset || DEFAULT_THEME.activePreset,
+        customOverrides: fileConfig.customOverrides || DEFAULT_THEME.customOverrides,
+      };
+      await upsertThemeIntoBuilder(bootstrap);
+      writeConfig(bootstrap);
+      return NextResponse.json(bootstrap);
     }
-    if (body.customOverrides !== undefined) {
-      config.customOverrides = body.customOverrides;
-    }
+
+    const config = {
+      activePreset: theme.activePreset || DEFAULT_THEME.activePreset,
+      customOverrides: theme.customOverrides || DEFAULT_THEME.customOverrides,
+    };
 
     writeConfig(config);
+    return NextResponse.json(config);
+  } catch {
+    return NextResponse.json(fileConfig);
+  }
+}
+
+/** PUT /api/theme - Save theme config */
+export async function PUT(request: NextRequest) {
+  let body: any;
+
+  try {
+    body = await request.json();
+  } catch {
+    return NextResponse.json({ ok: false, error: "Invalid payload" }, { status: 400 });
+  }
+
+  const config = readConfig();
+  if (body.activePreset) config.activePreset = body.activePreset;
+  if (body.customOverrides !== undefined) config.customOverrides = body.customOverrides;
+
+  try {
+    await upsertThemeIntoBuilder({
+      activePreset: config.activePreset || DEFAULT_THEME.activePreset,
+      customOverrides: config.customOverrides || DEFAULT_THEME.customOverrides,
+    });
+
+    writeConfig(config);
+
     return NextResponse.json({ ok: true, ...config });
-  } catch (err) {
-    return NextResponse.json({ ok: false, error: "Failed to save" }, { status: 500 });
+  } catch {
+    try {
+      writeConfig(config);
+      return NextResponse.json({ ok: true, ...config, warning: "Saved to local fallback only" });
+    } catch {
+      return NextResponse.json({ ok: false, error: "Failed to save" }, { status: 500 });
+    }
   }
 }

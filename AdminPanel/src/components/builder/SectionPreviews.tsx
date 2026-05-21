@@ -45,38 +45,39 @@ export function HeroBannerPreview({ settings }: { settings: Section["settings"] 
 
   return (
     <section className="bg-background-elevated">
-      <div className="qh-container qh-hero-grid grid gap-6 py-6">
-        <div className="flex flex-col justify-center">
+      <div className="qh-container py-4 md:py-8">
+        <div className="relative overflow-hidden rounded-2xl border border-border bg-background-soft shadow-soft">
+          <img src={imageUrl} alt="" className="h-[360px] w-full object-cover md:h-[460px]" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/35 to-black/10 md:from-black/55 md:via-black/25 md:to-transparent" />
+          <div className="absolute inset-0 flex items-center">
+            <div className="w-full max-w-xl p-5 md:p-10">
           {badgeText && (
-            <div className="mb-5 w-fit rounded-full bg-brand-accent px-3 py-1 text-xs font-semibold text-text-main inline-flex items-center">
+                <div className="mb-4 w-fit rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-[#202223] inline-flex items-center">
               ✨ {badgeText}
             </div>
           )}
-          <h1 className="font-display font-black leading-tight text-text-main">{heading}</h1>
-          <p className="mt-5 max-w-narrow bp-text-lg leading-relaxed text-text-muted">{subheading}</p>
-          <div className="mt-8 bp-btn-group">
+              <h1 className="font-display text-[1.75rem] font-black leading-tight text-white md:text-[2.6rem]">
+                {heading}
+              </h1>
+              <p className="mt-3 max-w-lg text-sm leading-relaxed text-white/90 md:text-base">{subheading}</p>
+              <div className="mt-6 bp-btn-group">
             {button1Text && (
-              <span className="inline-flex h-12 items-center justify-center rounded-full bg-brand-primary px-8 text-base font-semibold text-text-inverse shadow-glow">
+                  <span className="inline-flex h-11 items-center justify-center rounded-full bg-white px-6 text-sm font-semibold text-[#202223] shadow-glow md:h-12 md:px-8 md:text-base">
                 {button1Text}
               </span>
             )}
             {button2Text && (
-              <span className="inline-flex h-12 items-center justify-center rounded-full border border-border bg-background-elevated px-8 text-base font-semibold text-text-main">
+                  <span className="inline-flex h-11 items-center justify-center rounded-full border border-white/70 bg-transparent px-6 text-sm font-semibold text-white md:h-12 md:px-8 md:text-base">
                 {button2Text}
               </span>
             )}
-          </div>
-          <div className="mt-8 bp-features font-bold text-text-main">
+              </div>
+              <div className="mt-6 bp-features font-bold text-white/95">
             {feature1 && <div className="flex items-center gap-2">🚚 {feature1}</div>}
             {feature2 && <div className="flex items-center gap-2">🛡️ {feature2}</div>}
             {feature3 && <div className="flex items-center gap-2">✨ {feature3}</div>}
-          </div>
-        </div>
-        <div className="relative qh-hero-media overflow-hidden rounded-lg bg-background-soft">
-          <img src={imageUrl} alt="" className="h-full w-full object-cover" />
-          <div className="absolute bottom-5 left-5 rounded-lg border border-border bg-background-elevated p-4 shadow-dropdown">
-            <p className="text-sm font-bold text-brand-primary">Up to 60% Off</p>
-            <p className="text-sm text-text-muted">Bedding, lamps, wall art and more</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>

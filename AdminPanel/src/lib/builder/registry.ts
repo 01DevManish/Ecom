@@ -21,7 +21,7 @@ const _rawSections: SectionDefinition[] = [
   },
   {
     type: "HeroBanner", label: "Hero Banner", icon: "Image", category: "hero",
-    description: "Full-width hero with heading, CTA buttons and image",
+    description: "Single-image hero banner optimized for mobile and desktop",
     fields: [
       { key: "heading", label: "Heading", type: "text", defaultValue: "Buy Home Decor Items Online for Every Indian Home", group: "content" },
       { key: "subheading", label: "Subheading", type: "textarea", defaultValue: "Shop bedsheets, wall decor, table lamps, kitchen essentials, dining pieces, planters, gifts, and curated home accessories at friendly prices.", group: "content" },
@@ -30,8 +30,7 @@ const _rawSections: SectionDefinition[] = [
       { key: "button1Link", label: "Primary Button Link", type: "url", defaultValue: "/search", group: "content" },
       { key: "button2Text", label: "Secondary Button", type: "text", defaultValue: "Explore Collections", group: "content" },
       { key: "button2Link", label: "Secondary Button Link", type: "url", defaultValue: "/search", group: "content" },
-      { key: "imageUrl", label: "Hero Image", type: "image", defaultValue: "", group: "media" },
-      { key: "gallery", label: "Hero Gallery (multiple)", type: "media-array", defaultValue: [], group: "media" },
+      { key: "imageUrl", label: "Hero Image (single)", type: "image", defaultValue: "", group: "media", helpText: "Use one high-quality banner image. This image is used on both mobile and desktop." },
       { key: "contentPosition", label: "Content Position", type: "alignment", defaultValue: "center-left", group: "layout" },
       { key: "overlayOpacity", label: "Overlay Opacity", type: "range", defaultValue: 0, min: 0, max: 100, step: 5, group: "layout" },
       { key: "minHeight", label: "Min Height", type: "select", defaultValue: "auto", options: [{ label: "Auto", value: "auto" }, { label: "400px", value: "400px" }, { label: "600px", value: "600px" }, { label: "Full Screen", value: "100vh" }], group: "layout" },
@@ -39,7 +38,7 @@ const _rawSections: SectionDefinition[] = [
       { key: "feature2", label: "Feature 2", type: "text", defaultValue: "Secure checkout", group: "content" },
       { key: "feature3", label: "Feature 3", type: "text", defaultValue: "Curated picks", group: "content" },
     ],
-    defaultSettings: { heading: "Buy Home Decor Items Online for Every Indian Home", subheading: "Shop bedsheets, wall decor, table lamps, kitchen essentials, dining pieces, planters, gifts, and curated home accessories at friendly prices.", badgeText: "Festive Home Refresh Sale", button1Text: "Shop the Sale", button1Link: "/search", button2Text: "Explore Collections", button2Link: "/search", imageUrl: "", gallery: [], contentPosition: "center-left", overlayOpacity: 0, minHeight: "auto", feature1: "Fast delivery", feature2: "Secure checkout", feature3: "Curated picks" },
+    defaultSettings: { heading: "Buy Home Decor Items Online for Every Indian Home", subheading: "Shop bedsheets, wall decor, table lamps, kitchen essentials, dining pieces, planters, gifts, and curated home accessories at friendly prices.", badgeText: "Festive Home Refresh Sale", button1Text: "Shop the Sale", button1Link: "/search", button2Text: "Explore Collections", button2Link: "/search", imageUrl: "", contentPosition: "center-left", overlayOpacity: 0, minHeight: "auto", feature1: "Fast delivery", feature2: "Secure checkout", feature3: "Curated picks" },
   },
   {
     type: "Slideshow", label: "Slideshow", icon: "GalleryHorizontal", category: "hero",
@@ -154,16 +153,62 @@ const _rawSections: SectionDefinition[] = [
       { key: "eyebrow", label: "Eyebrow Text", type: "text", defaultValue: "Shop by category" },
       { key: "heading", label: "Heading", type: "text", defaultValue: "Home decor, furnishing and essentials" },
       { key: "subheading", label: "Subheading", type: "text", defaultValue: "Find bedding, wall decor, lighting, kitchen, dining, bath, garden, gifts, storage and showpieces in one place." },
+      { key: "categoryCount", label: "Number of Categories", type: "number", defaultValue: 5 },
+      { key: "cat1Text", label: "Category 1 Text", type: "text", defaultValue: "Bedding" },
       { key: "cat1Image", label: "Category 1 Image", type: "image", defaultValue: "" },
+      { key: "cat1Link", label: "Category 1 Link", type: "url", defaultValue: "/bedding" },
+      { key: "cat2Text", label: "Category 2 Text", type: "text", defaultValue: "Furnishing" },
       { key: "cat2Image", label: "Category 2 Image", type: "image", defaultValue: "" },
+      { key: "cat2Link", label: "Category 2 Link", type: "url", defaultValue: "/furnishing" },
+      { key: "cat3Text", label: "Category 3 Text", type: "text", defaultValue: "Organiser" },
       { key: "cat3Image", label: "Category 3 Image", type: "image", defaultValue: "" },
+      { key: "cat3Link", label: "Category 3 Link", type: "url", defaultValue: "/organiser" },
+      { key: "cat4Text", label: "Category 4 Text", type: "text", defaultValue: "Bath" },
       { key: "cat4Image", label: "Category 4 Image", type: "image", defaultValue: "" },
+      { key: "cat4Link", label: "Category 4 Link", type: "url", defaultValue: "/bath" },
+      { key: "cat5Text", label: "Category 5 Text", type: "text", defaultValue: "Gifts" },
       { key: "cat5Image", label: "Category 5 Image", type: "image", defaultValue: "" },
+      { key: "cat5Link", label: "Category 5 Link", type: "url", defaultValue: "/gifts" },
+      { key: "cat6Text", label: "Category 6 Text", type: "text", defaultValue: "New Arrival" },
       { key: "cat6Image", label: "Category 6 Image", type: "image", defaultValue: "" },
+      { key: "cat6Link", label: "Category 6 Link", type: "url", defaultValue: "/new-arrival" },
+      { key: "cat7Text", label: "Category 7 Text", type: "text", defaultValue: "Comforters" },
       { key: "cat7Image", label: "Category 7 Image", type: "image", defaultValue: "" },
+      { key: "cat7Link", label: "Category 7 Link", type: "url", defaultValue: "/comforters" },
+      { key: "cat8Text", label: "Category 8 Text", type: "text", defaultValue: "Carpet" },
       { key: "cat8Image", label: "Category 8 Image", type: "image", defaultValue: "" },
+      { key: "cat8Link", label: "Category 8 Link", type: "url", defaultValue: "/carpet" },
+      { key: "cat9Text", label: "Category 9 Text", type: "text", defaultValue: "Return and Exchange" },
+      { key: "cat9Image", label: "Category 9 Image", type: "image", defaultValue: "" },
+      { key: "cat9Link", label: "Category 9 Link", type: "url", defaultValue: "/return-and-exchange" },
+      { key: "cat10Text", label: "Category 10 Text", type: "text", defaultValue: "Category 10" },
+      { key: "cat10Image", label: "Category 10 Image", type: "image", defaultValue: "" },
+      { key: "cat10Link", label: "Category 10 Link", type: "url", defaultValue: "/category-10" },
+      { key: "cat11Text", label: "Category 11 Text", type: "text", defaultValue: "Category 11" },
+      { key: "cat11Image", label: "Category 11 Image", type: "image", defaultValue: "" },
+      { key: "cat11Link", label: "Category 11 Link", type: "url", defaultValue: "/category-11" },
+      { key: "cat12Text", label: "Category 12 Text", type: "text", defaultValue: "Category 12" },
+      { key: "cat12Image", label: "Category 12 Image", type: "image", defaultValue: "" },
+      { key: "cat12Link", label: "Category 12 Link", type: "url", defaultValue: "/category-12" },
     ],
-    defaultSettings: { eyebrow: "Shop by category", heading: "Home decor, furnishing and essentials", subheading: "Find bedding, wall decor, lighting, kitchen, dining, bath, garden, gifts, storage and showpieces in one place.", cat1Image: "", cat2Image: "", cat3Image: "", cat4Image: "", cat5Image: "", cat6Image: "", cat7Image: "", cat8Image: "" },
+    defaultSettings: {
+      eyebrow: "Shop by category",
+      heading: "Home decor, furnishing and essentials",
+      subheading: "Find bedding, wall decor, lighting, kitchen, dining, bath, garden, gifts, storage and showpieces in one place.",
+      categoryCount: 5,
+      cat1Text: "Bedding", cat1Image: "", cat1Link: "/bedding",
+      cat2Text: "Furnishing", cat2Image: "", cat2Link: "/furnishing",
+      cat3Text: "Organiser", cat3Image: "", cat3Link: "/organiser",
+      cat4Text: "Bath", cat4Image: "", cat4Link: "/bath",
+      cat5Text: "Gifts", cat5Image: "", cat5Link: "/gifts",
+      cat6Text: "New Arrival", cat6Image: "", cat6Link: "/new-arrival",
+      cat7Text: "Comforters", cat7Image: "", cat7Link: "/comforters",
+      cat8Text: "Carpet", cat8Image: "", cat8Link: "/carpet",
+      cat9Text: "Return and Exchange", cat9Image: "", cat9Link: "/return-and-exchange",
+      cat10Text: "Category 10", cat10Image: "", cat10Link: "/category-10",
+      cat11Text: "Category 11", cat11Image: "", cat11Link: "/category-11",
+      cat12Text: "Category 12", cat12Image: "", cat12Link: "/category-12",
+    },
   },
   {
     type: "CollectionsSection", label: "Collections", icon: "FolderOpen", category: "product",
@@ -172,8 +217,9 @@ const _rawSections: SectionDefinition[] = [
       { key: "eyebrow", label: "Eyebrow Text", type: "text", defaultValue: "Collections" },
       { key: "heading", label: "Heading", type: "text", defaultValue: "Shop by collection" },
       { key: "subheading", label: "Subheading", type: "text", defaultValue: "Curated product sets to help you discover your style." },
+      { key: "collectionSlug", label: "Select Collection", type: "collection-select", defaultValue: "" },
     ],
-    defaultSettings: { eyebrow: "Collections", heading: "Shop by collection", subheading: "Curated product sets to help you discover your style." },
+    defaultSettings: { eyebrow: "Collections", heading: "Shop by collection", subheading: "Curated product sets to help you discover your style.", collectionSlug: "" },
   },
   {
     type: "ProductGrid", label: "Product Grid", icon: "ShoppingBag", category: "product",
@@ -304,11 +350,29 @@ const _rawSections: SectionDefinition[] = [
   /* ─── UTILITY ──────────────────────────────────────────────── */
   {
     type: "SeoArticle", label: "SEO Text", icon: "FileText", category: "utility",
-    description: "SEO-friendly content block with HTML",
+    description: "SEO-friendly content block with heading and paragraph fields",
     fields: [
-      { key: "content", label: "HTML Content", type: "richtext", defaultValue: "<h2>QuirkyHome - Buy Home Decor Items Online in India</h2><p>QuirkyHome is built for people who want beautiful home decor without making shopping feel complicated.</p>" },
+      { key: "headingTag", label: "Heading Level", type: "select", defaultValue: "h2", options: [
+        { label: "H1", value: "h1" }, { label: "H2", value: "h2" }, { label: "H3", value: "h3" },
+        { label: "H4", value: "h4" }, { label: "H5", value: "h5" }, { label: "H6", value: "h6" }
+      ] },
+      { key: "headingText", label: "Main Heading", type: "text", defaultValue: "QuirkyHome - Buy Home Decor Items Online in India" },
+      { key: "content", label: "Content Paragraph 1", type: "textarea", defaultValue: "QuirkyHome is built for people who want beautiful home decor without making shopping feel complicated. Explore bedding, home furnishing, wall decor, table lamps, dining essentials, kitchen products, bath accessories, planters, storage baskets, showpieces and thoughtful gifts for Indian homes." },
+      { key: "subheadingTag", label: "Second Heading Level", type: "select", defaultValue: "h2", options: [
+        { label: "H1", value: "h1" }, { label: "H2", value: "h2" }, { label: "H3", value: "h3" },
+        { label: "H4", value: "h4" }, { label: "H5", value: "h5" }, { label: "H6", value: "h6" }
+      ] },
+      { key: "subheadingText", label: "Second Heading", type: "text", defaultValue: "Shop Home Decor by Category" },
+      { key: "content2", label: "Content Paragraph 2", type: "textarea", defaultValue: "Whether you are refreshing a bedroom, setting up a living room, styling a dining table or choosing a housewarming gift, our category-led shopping experience helps you find the right product quickly. Every product card keeps price, discount, rating, wishlist and add-to-cart actions easy to scan on mobile and desktop." },
     ],
-    defaultSettings: { content: "<h2>QuirkyHome - Buy Home Decor Items Online in India</h2><p>QuirkyHome is built for people who want beautiful home decor without making shopping feel complicated.</p><h2>Shop Home Decor by Category</h2><p>Every product card keeps price, discount, rating, wishlist and add-to-cart actions easy to scan on mobile and desktop.</p>" },
+    defaultSettings: {
+      headingTag: "h2",
+      headingText: "QuirkyHome - Buy Home Decor Items Online in India",
+      content: "QuirkyHome is built for people who want beautiful home decor without making shopping feel complicated. Explore bedding, home furnishing, wall decor, table lamps, dining essentials, kitchen products, bath accessories, planters, storage baskets, showpieces and thoughtful gifts for Indian homes.",
+      subheadingTag: "h2",
+      subheadingText: "Shop Home Decor by Category",
+      content2: "Whether you are refreshing a bedroom, setting up a living room, styling a dining table or choosing a housewarming gift, our category-led shopping experience helps you find the right product quickly. Every product card keeps price, discount, rating, wishlist and add-to-cart actions easy to scan on mobile and desktop.",
+    },
   },
   {
     type: "MapSection", label: "Map", icon: "MapPin", category: "utility",
@@ -342,14 +406,14 @@ const _rawSections: SectionDefinition[] = [
 
 /* ─── Global spacing & style fields auto-injected into every section ─ */
 const globalFields = [
-  { key: "sectionPaddingTop", label: "Padding Top (px)", type: "range" as const, defaultValue: 48, min: 0, max: 120, step: 4, group: "spacing" },
-  { key: "sectionPaddingBottom", label: "Padding Bottom (px)", type: "range" as const, defaultValue: 48, min: 0, max: 120, step: 4, group: "spacing" },
+  { key: "sectionPaddingTop", label: "Padding Top (px)", type: "range" as const, defaultValue: 24, min: 0, max: 120, step: 4, group: "spacing" },
+  { key: "sectionPaddingBottom", label: "Padding Bottom (px)", type: "range" as const, defaultValue: 24, min: 0, max: 120, step: 4, group: "spacing" },
   { key: "sectionBgColor", label: "Background Color", type: "color" as const, defaultValue: "", group: "style", helpText: "Leave empty for default" },
   { key: "sectionFullWidth", label: "Full Width", type: "toggle" as const, defaultValue: false, group: "layout" },
 ];
 
 const globalDefaults: Record<string, any> = {
-  sectionPaddingTop: 48, sectionPaddingBottom: 48, sectionBgColor: "", sectionFullWidth: false,
+  sectionPaddingTop: 24, sectionPaddingBottom: 24, sectionBgColor: "", sectionFullWidth: false,
 };
 
 // Inject global fields into every section

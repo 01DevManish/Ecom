@@ -2,7 +2,7 @@ import { Controller, Get, Post, Delete, Body, Query, Headers, HttpException, Htt
 import { SitesService } from './sites.service';
 import { AuthService } from '../auth/auth.service';
 
-@Controller('sites')
+@Controller('admin/sites')
 export class SitesController {
   constructor(
     private readonly sitesService: SitesService,

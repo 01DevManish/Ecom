@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, FormEvent } from "react";
-import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import { Eye, EyeOff, Lock, Mail } from "lucide-react";
 
 export default function TeamLoginPage() {
@@ -10,7 +10,27 @@ export default function TeamLoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const router = useRouter();
+
+  useEffect(() => {
+    const hasTokenCookie = document.cookie.includes("qh_token=");
+    if (hasTokenCookie) {
+      window.location.replace("/");
+      return;
+    }
+
+    fetch("/api/auth/me", { cache: "no-store", credentials: "include" })
+      .then(async (res) => {
+        if (!res.ok) return null;
+        return res.json();
+      })
+      .then((data) => {
+        const role = data?.user?.role || data?.role;
+        if (role === "admin" || role === "team") {
+          window.location.replace("/");
+        }
+      })
+      .catch(() => {});
+  }, []);
 
   async function handleLogin(e: FormEvent) {
     e.preventDefault();
@@ -21,6 +41,7 @@ export default function TeamLoginPage() {
       const res = await fetch("/api/auth/team-login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        credentials: "include",
         body: JSON.stringify({ email, password }),
       });
       const data = await res.json();
@@ -28,7 +49,7 @@ export default function TeamLoginPage() {
 
       // Store user info for client-side usage
       localStorage.setItem("qh_team_user", JSON.stringify(data.user));
-      router.push("/");
+      window.location.assign("/");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Login failed");
     } finally {
@@ -102,10 +123,6 @@ export default function TeamLoginPage() {
             </button>
           </form>
         </div>
-
-        <p className="mt-4 text-center text-[12px] text-[#8c9196]">
-          Default: admin@quirkyhome.in / admin123
-        </p>
       </div>
     </div>
   );

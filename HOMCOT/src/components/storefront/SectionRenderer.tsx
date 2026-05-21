@@ -281,7 +281,18 @@ export function RenderSection({ section, theme }: RenderSectionProps) {
   if (!section.visible) return null;
   const Component = storefrontComponentMap[section.type];
   if (!Component) return null;
-  return <Component settings={section.settings} theme={theme} />;
+
+  const s = section.settings;
+  const wrapperStyle: React.CSSProperties = {};
+  if (s.sectionPaddingTop !== undefined) wrapperStyle.paddingTop = `${s.sectionPaddingTop}px`;
+  if (s.sectionPaddingBottom !== undefined) wrapperStyle.paddingBottom = `${s.sectionPaddingBottom}px`;
+  if (s.sectionBgColor) wrapperStyle.backgroundColor = s.sectionBgColor;
+
+  return (
+    <div style={wrapperStyle} className="qh-builder-section">
+      <Component settings={s} theme={theme} />
+    </div>
+  );
 }
 
 export function RenderSections({ sections, theme }: { sections: Section[]; theme: ThemeSettings }) {
