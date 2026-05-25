@@ -1,5 +1,5 @@
-/**
- * QuirkyHome Visual Page Builder — Section Registry (Shopify-complete)
+﻿/**
+ * QuirkyHome Visual Page Builder â€” Section Registry (Shopify-complete)
  * 
  * Every section type Shopify offers, adapted for QuirkyHome.
  */
@@ -7,17 +7,17 @@
 import type { SectionDefinition } from "./types";
 
 const _rawSections: SectionDefinition[] = [
-  /* ─── HERO ─────────────────────────────────────────────────── */
+  /* â”€â”€â”€ HERO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
   {
     type: "BannerStrip", label: "Announcement Bar", icon: "Megaphone", category: "hero",
     description: "Top-of-page promotional strip with custom colors",
     fields: [
-      { key: "text", label: "Announcement Text", type: "text", defaultValue: "Free shipping on orders above ₹999!" },
+      { key: "text", label: "Announcement Text", type: "text", defaultValue: "Free shipping on orders above â‚¹999!" },
       { key: "bgColor", label: "Background Color", type: "color", defaultValue: "#008060" },
       { key: "textColor", label: "Text Color", type: "color", defaultValue: "#ffffff" },
       { key: "link", label: "Link (optional)", type: "url", defaultValue: "" },
     ],
-    defaultSettings: { text: "Free shipping on orders above ₹999!", bgColor: "#008060", textColor: "#ffffff", link: "" },
+    defaultSettings: { text: "Free shipping on orders above â‚¹999!", bgColor: "#008060", textColor: "#ffffff", link: "" },
   },
   {
     type: "HeroBanner", label: "Hero Banner", icon: "Image", category: "hero",
@@ -63,7 +63,7 @@ const _rawSections: SectionDefinition[] = [
     category: "media",
     description: "3-image promotional grid with clickable links (1 large + 2 small)",
     fields: [
-      { key: "image1Url", label: "Image 1 URL (Large — Left)", type: "image", defaultValue: "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=800&q=80" },
+      { key: "image1Url", label: "Image 1 URL (Large â€” Left)", type: "image", defaultValue: "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=800&q=80" },
       { key: "image1Link", label: "Image 1 Link", type: "text", defaultValue: "/" },
       { key: "image1Alt", label: "Image 1 Alt Text", type: "text", defaultValue: "Lamps & Lighting" },
       { key: "image2Url", label: "Image 2 URL (Top Right)", type: "image", defaultValue: "https://images.unsplash.com/photo-1578500494198-246f612d3b3d?auto=format&fit=crop&w=800&q=80" },
@@ -94,6 +94,91 @@ const _rawSections: SectionDefinition[] = [
     },
   },
   {
+    type: "FiveGrid",
+    label: "5 Grid",
+    icon: "LayoutGrid",
+    category: "media",
+    description: "Five-image custom promo grid with per-image alt text and links",
+    fields: [
+      { key: "image1Url", label: "Image 1 (Tall Left)", type: "image", defaultValue: "" },
+      { key: "image1Alt", label: "Image 1 Alt Text", type: "text", defaultValue: "" },
+      { key: "image1Link", label: "Image 1 Link", type: "url", defaultValue: "/" },
+      { key: "image1Title", label: "Image 1 Title", type: "text", defaultValue: "Rugs & Carpets" },
+      { key: "image1Offer", label: "Image 1 Offer Text", type: "text", defaultValue: "Up to 50% OFF" },
+      { key: "image1Cta", label: "Image 1 Button Text", type: "text", defaultValue: "Shop Now" },
+      { key: "image1TextAlign", label: "Image 1 Text Align", type: "select", defaultValue: "left", options: [{ label: "Left", value: "left" }, { label: "Right", value: "right" }] },
+      { key: "image2Url", label: "Image 2 (Top Middle)", type: "image", defaultValue: "" },
+      { key: "image2Alt", label: "Image 2 Alt Text", type: "text", defaultValue: "" },
+      { key: "image2Link", label: "Image 2 Link", type: "url", defaultValue: "/" },
+      { key: "image2Title", label: "Image 2 Title", type: "text", defaultValue: "Mirror & Wall Shelves" },
+      { key: "image2Offer", label: "Image 2 Offer Text", type: "text", defaultValue: "Up to 40% OFF" },
+      { key: "image2Cta", label: "Image 2 Button Text", type: "text", defaultValue: "Shop Now" },
+      { key: "image2TextAlign", label: "Image 2 Text Align", type: "select", defaultValue: "left", options: [{ label: "Left", value: "left" }, { label: "Right", value: "right" }] },
+      { key: "image3Url", label: "Image 3 (Top Right)", type: "image", defaultValue: "" },
+      { key: "image3Alt", label: "Image 3 Alt Text", type: "text", defaultValue: "" },
+      { key: "image3Link", label: "Image 3 Link", type: "url", defaultValue: "/" },
+      { key: "image3Title", label: "Image 3 Title", type: "text", defaultValue: "Live Plants & Planters" },
+      { key: "image3Offer", label: "Image 3 Offer Text", type: "text", defaultValue: "Up to 48% OFF" },
+      { key: "image3Cta", label: "Image 3 Button Text", type: "text", defaultValue: "Shop Now" },
+      { key: "image3TextAlign", label: "Image 3 Text Align", type: "select", defaultValue: "left", options: [{ label: "Left", value: "left" }, { label: "Right", value: "right" }] },
+      { key: "image4Url", label: "Image 4 (Bottom Middle)", type: "image", defaultValue: "" },
+      { key: "image4Alt", label: "Image 4 Alt Text", type: "text", defaultValue: "" },
+      { key: "image4Link", label: "Image 4 Link", type: "url", defaultValue: "/" },
+      { key: "image4Title", label: "Image 4 Title", type: "text", defaultValue: "Wind Chimes" },
+      { key: "image4Offer", label: "Image 4 Offer Text", type: "text", defaultValue: "Up to 50% OFF" },
+      { key: "image4Cta", label: "Image 4 Button Text", type: "text", defaultValue: "Shop Now" },
+      { key: "image4TextAlign", label: "Image 4 Text Align", type: "select", defaultValue: "left", options: [{ label: "Left", value: "left" }, { label: "Right", value: "right" }] },
+      { key: "image5Url", label: "Image 5 (Bottom Right)", type: "image", defaultValue: "" },
+      { key: "image5Alt", label: "Image 5 Alt Text", type: "text", defaultValue: "" },
+      { key: "image5Link", label: "Image 5 Link", type: "url", defaultValue: "/" },
+      { key: "image5Title", label: "Image 5 Title", type: "text", defaultValue: "Floor Cushions" },
+      { key: "image5Offer", label: "Image 5 Offer Text", type: "text", defaultValue: "Up to 41% OFF" },
+      { key: "image5Cta", label: "Image 5 Button Text", type: "text", defaultValue: "Shop Now" },
+      { key: "image5TextAlign", label: "Image 5 Text Align", type: "select", defaultValue: "right", options: [{ label: "Left", value: "left" }, { label: "Right", value: "right" }] },
+      { key: "gap", label: "Gap (px)", type: "range", defaultValue: 16, min: 8, max: 28, step: 2 },
+      { key: "radius", label: "Corner Radius (px)", type: "range", defaultValue: 22, min: 6, max: 36, step: 1 },
+    ],
+    defaultSettings: {
+      image1Url: "",
+      image1Alt: "",
+      image1Link: "/",
+      image1Title: "Rugs & Carpets",
+      image1Offer: "Up to 50% OFF",
+      image1Cta: "Shop Now",
+      image1TextAlign: "left",
+      image2Url: "",
+      image2Alt: "",
+      image2Link: "/",
+      image2Title: "Mirror & Wall Shelves",
+      image2Offer: "Up to 40% OFF",
+      image2Cta: "Shop Now",
+      image2TextAlign: "left",
+      image3Url: "",
+      image3Alt: "",
+      image3Link: "/",
+      image3Title: "Live Plants & Planters",
+      image3Offer: "Up to 48% OFF",
+      image3Cta: "Shop Now",
+      image3TextAlign: "left",
+      image4Url: "",
+      image4Alt: "",
+      image4Link: "/",
+      image4Title: "Wind Chimes",
+      image4Offer: "Up to 50% OFF",
+      image4Cta: "Shop Now",
+      image4TextAlign: "left",
+      image5Url: "",
+      image5Alt: "",
+      image5Link: "/",
+      image5Title: "Floor Cushions",
+      image5Offer: "Up to 41% OFF",
+      image5Cta: "Shop Now",
+      image5TextAlign: "right",
+      gap: 16,
+      radius: 22,
+    },
+  },
+  {
     type: "ImageBanner",
     label: "Image Banner",
     icon: "ImageIcon",
@@ -120,9 +205,168 @@ const _rawSections: SectionDefinition[] = [
       fullWidth: false,
     },
   },
-
-  /* ─── CONTENT ──────────────────────────────────────────────── */
   {
+    type: "SlideBanner",
+    label: "Slide Banner",
+    icon: "Images",
+    category: "media",
+    description: "Auto-sliding image banner with arrow controls and up to 15 slides",
+    fields: [
+      { key: "heading", label: "Heading (optional)", type: "text", defaultValue: "" },
+      { key: "autoPlay", label: "Auto Play", type: "toggle", defaultValue: true },
+      { key: "intervalSec", label: "Slide Interval (sec)", type: "number", defaultValue: 4, min: 2, max: 15 },
+      { key: "heightDesktop", label: "Desktop Height (px)", type: "number", defaultValue: 360, min: 120, max: 1000 },
+      { key: "heightMobile", label: "Mobile Height (px)", type: "number", defaultValue: 220, min: 80, max: 700 },
+      { key: "desktopAutoHeight", label: "Desktop Auto Height", type: "toggle", defaultValue: true },
+      { key: "mobileAutoHeight", label: "Mobile Auto Height", type: "toggle", defaultValue: true },
+      { key: "fitDesktop", label: "Desktop Image Fit", type: "select", defaultValue: "contain", options: [{ label: "Cover", value: "cover" }, { label: "Contain", value: "contain" }] },
+      { key: "fitMobile", label: "Mobile Image Fit", type: "select", defaultValue: "contain", options: [{ label: "Contain", value: "contain" }, { label: "Cover", value: "cover" }] },
+      { key: "radius", label: "Corner Radius (px)", type: "number", defaultValue: 16, min: 0, max: 36 },
+      { key: "slide1Image", label: "Slide 1 Image", type: "image", defaultValue: "" },
+      { key: "slide1Alt", label: "Slide 1 Alt", type: "text", defaultValue: "" },
+      { key: "slide1Link", label: "Slide 1 Link", type: "text", defaultValue: "/" },
+      { key: "slide2Image", label: "Slide 2 Image", type: "image", defaultValue: "" },
+      { key: "slide2Alt", label: "Slide 2 Alt", type: "text", defaultValue: "" },
+      { key: "slide2Link", label: "Slide 2 Link", type: "text", defaultValue: "/" },
+      { key: "slide3Image", label: "Slide 3 Image", type: "image", defaultValue: "" },
+      { key: "slide3Alt", label: "Slide 3 Alt", type: "text", defaultValue: "" },
+      { key: "slide3Link", label: "Slide 3 Link", type: "text", defaultValue: "/" },
+      { key: "slide4Image", label: "Slide 4 Image", type: "image", defaultValue: "" },
+      { key: "slide4Alt", label: "Slide 4 Alt", type: "text", defaultValue: "" },
+      { key: "slide4Link", label: "Slide 4 Link", type: "text", defaultValue: "/" },
+      { key: "slide5Image", label: "Slide 5 Image", type: "image", defaultValue: "" },
+      { key: "slide5Alt", label: "Slide 5 Alt", type: "text", defaultValue: "" },
+      { key: "slide5Link", label: "Slide 5 Link", type: "text", defaultValue: "/" },
+      { key: "slide6Image", label: "Slide 6 Image", type: "image", defaultValue: "" },
+      { key: "slide6Alt", label: "Slide 6 Alt", type: "text", defaultValue: "" },
+      { key: "slide6Link", label: "Slide 6 Link", type: "text", defaultValue: "/" },
+      { key: "slide7Image", label: "Slide 7 Image", type: "image", defaultValue: "" },
+      { key: "slide7Alt", label: "Slide 7 Alt", type: "text", defaultValue: "" },
+      { key: "slide7Link", label: "Slide 7 Link", type: "text", defaultValue: "/" },
+      { key: "slide8Image", label: "Slide 8 Image", type: "image", defaultValue: "" },
+      { key: "slide8Alt", label: "Slide 8 Alt", type: "text", defaultValue: "" },
+      { key: "slide8Link", label: "Slide 8 Link", type: "text", defaultValue: "/" },
+      { key: "slide9Image", label: "Slide 9 Image", type: "image", defaultValue: "" },
+      { key: "slide9Alt", label: "Slide 9 Alt", type: "text", defaultValue: "" },
+      { key: "slide9Link", label: "Slide 9 Link", type: "text", defaultValue: "/" },
+      { key: "slide10Image", label: "Slide 10 Image", type: "image", defaultValue: "" },
+      { key: "slide10Alt", label: "Slide 10 Alt", type: "text", defaultValue: "" },
+      { key: "slide10Link", label: "Slide 10 Link", type: "text", defaultValue: "/" },
+      { key: "slide11Image", label: "Slide 11 Image", type: "image", defaultValue: "" },
+      { key: "slide11Alt", label: "Slide 11 Alt", type: "text", defaultValue: "" },
+      { key: "slide11Link", label: "Slide 11 Link", type: "text", defaultValue: "/" },
+      { key: "slide12Image", label: "Slide 12 Image", type: "image", defaultValue: "" },
+      { key: "slide12Alt", label: "Slide 12 Alt", type: "text", defaultValue: "" },
+      { key: "slide12Link", label: "Slide 12 Link", type: "text", defaultValue: "/" },
+      { key: "slide13Image", label: "Slide 13 Image", type: "image", defaultValue: "" },
+      { key: "slide13Alt", label: "Slide 13 Alt", type: "text", defaultValue: "" },
+      { key: "slide13Link", label: "Slide 13 Link", type: "text", defaultValue: "/" },
+      { key: "slide14Image", label: "Slide 14 Image", type: "image", defaultValue: "" },
+      { key: "slide14Alt", label: "Slide 14 Alt", type: "text", defaultValue: "" },
+      { key: "slide14Link", label: "Slide 14 Link", type: "text", defaultValue: "/" },
+      { key: "slide15Image", label: "Slide 15 Image", type: "image", defaultValue: "" },
+      { key: "slide15Alt", label: "Slide 15 Alt", type: "text", defaultValue: "" },
+      { key: "slide15Link", label: "Slide 15 Link", type: "text", defaultValue: "/" },
+    ],
+    defaultSettings: {
+      heading: "", autoPlay: true, intervalSec: 4, heightDesktop: 360, heightMobile: 220, desktopAutoHeight: true, mobileAutoHeight: true, fitDesktop: "contain", fitMobile: "contain", radius: 16,
+      slide1Image: "", slide1Alt: "", slide1Link: "/", slide2Image: "", slide2Alt: "", slide2Link: "/",
+      slide3Image: "", slide3Alt: "", slide3Link: "/", slide4Image: "", slide4Alt: "", slide4Link: "/",
+      slide5Image: "", slide5Alt: "", slide5Link: "/", slide6Image: "", slide6Alt: "", slide6Link: "/",
+      slide7Image: "", slide7Alt: "", slide7Link: "/", slide8Image: "", slide8Alt: "", slide8Link: "/",
+      slide9Image: "", slide9Alt: "", slide9Link: "/", slide10Image: "", slide10Alt: "", slide10Link: "/",
+      slide11Image: "", slide11Alt: "", slide11Link: "/", slide12Image: "", slide12Alt: "", slide12Link: "/",
+      slide13Image: "", slide13Alt: "", slide13Link: "/", slide14Image: "", slide14Alt: "", slide14Link: "/",
+      slide15Image: "", slide15Alt: "", slide15Link: "/",
+    },
+  },
+  {
+    type: "SaleBanner",
+    label: "Sale Banner",
+    icon: "Timer",
+    category: "hero",
+    description: "Sale campaign banner with live countdown timer",
+    fields: [
+      { key: "title", label: "Title", type: "text", defaultValue: "Mega Sale Ends Soon" },
+      { key: "subtitle", label: "Subtitle", type: "text", defaultValue: "Grab your favorites before the timer runs out" },
+      { key: "ctaText", label: "Button Text", type: "text", defaultValue: "Shop Sale" },
+      { key: "ctaLink", label: "Button Link", type: "text", defaultValue: "/search" },
+      { key: "endDateTime", label: "End Date & Time", type: "datetime", defaultValue: "2026-12-31T23:59:59+05:30" },
+      { key: "bgFrom", label: "Gradient From", type: "color", defaultValue: "#1b1f3b" },
+      { key: "bgTo", label: "Gradient To", type: "color", defaultValue: "#ff6a3d" },
+      { key: "textColor", label: "Text Color", type: "color", defaultValue: "#ffffff" },
+      { key: "radius", label: "Corner Radius (px)", type: "number", defaultValue: 20, min: 0, max: 40 },
+    ],
+    defaultSettings: {
+      title: "Mega Sale Ends Soon",
+      subtitle: "Grab your favorites before the timer runs out",
+      ctaText: "Shop Sale",
+      ctaLink: "/search",
+      endDateTime: "2026-12-31T23:59:59+05:30",
+      bgFrom: "#1b1f3b",
+      bgTo: "#ff6a3d",
+      textColor: "#ffffff",
+      radius: 20,
+    },
+  },
+/* â”€â”€â”€ CONTENT â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+  {
+    type: "NewArrival",
+    label: "New Arrival",
+    icon: "Sparkles",
+    category: "content",
+    description: "New arrivals tabbed component with Accessory/Furniture switch and item grid",
+    fields: [
+      { key: "badgeText", label: "Badge Text", type: "text", defaultValue: "NEW" },
+      { key: "title", label: "Title", type: "text", defaultValue: "Arrivals" },
+      { key: "subtitle", label: "Subtitle", type: "textarea", defaultValue: "Be the first to explore our newest furniture and home essentials, crafted for modern homes." },
+      { key: "accessoryLabel", label: "Accessory Label", type: "text", defaultValue: "Accessory" },
+      { key: "furnitureLabel", label: "Furniture Label", type: "text", defaultValue: "Furniture" },
+      { key: "accessoryDataJson", label: "Accessory Data JSON", type: "textarea", defaultValue: "[{\"tab\":\"Wall Decor\",\"items\":[{\"icon\":\"🖼️\",\"label\":\"Canvas Art\"},{\"icon\":\"🪞\",\"label\":\"Mirrors\"},{\"icon\":\"🕯️\",\"label\":\"Candle Holders\"},{\"icon\":\"🌿\",\"label\":\"Planters\"},{\"icon\":\"💡\",\"label\":\"Wall Lights\"},{\"icon\":\"🎨\",\"label\":\"Paintings\"}]},{\"tab\":\"Beddings\",\"items\":[{\"icon\":\"🛏️\",\"label\":\"Bed Sheets\"},{\"icon\":\"🛋️\",\"label\":\"Pillow Covers\"},{\"icon\":\"🧸\",\"label\":\"Comforters\"}]},{\"tab\":\"Nursery And Bedding\",\"items\":[{\"icon\":\"🍼\",\"label\":\"Baby Beds\"},{\"icon\":\"🧸\",\"label\":\"Crib Sheets\"},{\"icon\":\"🌙\",\"label\":\"Night Lights\"}]},{\"tab\":\"Mosaic\",\"items\":[{\"icon\":\"🔷\",\"label\":\"Mosaic Tiles\"},{\"icon\":\"🌀\",\"label\":\"Art Panels\"},{\"icon\":\"🎭\",\"label\":\"Geometric Art\"}]},{\"tab\":\"Rugs\",\"items\":[{\"icon\":\"🟫\",\"label\":\"Area Rugs\"},{\"icon\":\"🟧\",\"label\":\"Door Mats\"},{\"icon\":\"🎭\",\"label\":\"Runner Rugs\"}]}]" },
+      { key: "furnitureDataJson", label: "Furniture Data JSON", type: "textarea", defaultValue: "[{\"tab\":\"Sofas & Seating\",\"items\":[{\"icon\":\"🛋️\",\"label\":\"3-Seater Sofa\"},{\"icon\":\"🪑\",\"label\":\"Recliners\"},{\"icon\":\"🛋️\",\"label\":\"L-Shape Sofa\"},{\"icon\":\"🪑\",\"label\":\"Accent Chair\"},{\"icon\":\"🛏️\",\"label\":\"Sofa Cum Bed\"},{\"icon\":\"🎪\",\"label\":\"Ottoman\"}]},{\"tab\":\"Coffee Table\",\"items\":[{\"icon\":\"☕\",\"label\":\"Round Tables\"},{\"icon\":\"🪵\",\"label\":\"Wooden Tables\"},{\"icon\":\"🔲\",\"label\":\"Glass Top\"}]},{\"tab\":\"TV Unit\",\"items\":[{\"icon\":\"📺\",\"label\":\"Wall Mounted\"},{\"icon\":\"🗄️\",\"label\":\"Floor Standing\"}]},{\"tab\":\"Study Table\",\"items\":[{\"icon\":\"📚\",\"label\":\"Writing Desk\"},{\"icon\":\"💼\",\"label\":\"Computer Desk\"},{\"icon\":\"📖\",\"label\":\"Kids Study\"}]},{\"tab\":\"Beds\",\"items\":[{\"icon\":\"🛏️\",\"label\":\"King Size\"},{\"icon\":\"🛏️\",\"label\":\"Queen Size\"},{\"icon\":\"🪵\",\"label\":\"Wooden Bed\"}]}]" },
+      { key: "sectionBgColor2", label: "Section Background", type: "color", defaultValue: "#f0c8bc" },
+      { key: "cardBgColor", label: "Container Background", type: "color", defaultValue: "#ffffff" },
+      { key: "titleColor", label: "Title Color", type: "color", defaultValue: "#2a1c19" },
+      { key: "subtitleColor", label: "Subtitle Color", type: "color", defaultValue: "#7a5550" },
+      { key: "accentColor", label: "Accent Color", type: "color", defaultValue: "#d9736a" },
+      { key: "badgeTextColor", label: "Badge Text Color", type: "color", defaultValue: "#ffffff" },
+      { key: "badgeShadowColor", label: "Badge Shadow Color", type: "color", defaultValue: "#b85a52" },
+      { key: "tabTextColor", label: "Tab Text Color", type: "color", defaultValue: "#9a7470" },
+      { key: "tabActiveTextColor", label: "Tab Active Text", type: "color", defaultValue: "#d9736a" },
+      { key: "tabUnderlineColor", label: "Tab Underline", type: "color", defaultValue: "#d9736a" },
+      { key: "tabBorderColor", label: "Tab Border", type: "color", defaultValue: "#f0e6e3" },
+      { key: "itemCardBgColor", label: "Item Card Background", type: "color", defaultValue: "#fdf4f3" },
+      { key: "itemCardBorderColor", label: "Item Card Border", type: "color", defaultValue: "#f0e0dc" },
+      { key: "itemTextColor", label: "Item Text Color", type: "color", defaultValue: "#7a5550" },
+      { key: "arrowBgColor", label: "Arrow Background", type: "color", defaultValue: "transparent" },
+      { key: "arrowBorderColor", label: "Arrow Border", type: "color", defaultValue: "#e8d8d5" },
+      { key: "arrowTextColor", label: "Arrow Text", type: "color", defaultValue: "#7a5550" },    ],
+    defaultSettings: {
+      badgeText: "NEW",
+      title: "Arrivals",
+      subtitle: "Be the first to explore our newest furniture and home essentials, crafted for modern homes.",
+      accessoryLabel: "Accessory",
+      furnitureLabel: "Furniture",
+      accessoryDataJson: "[{\"tab\":\"Wall Decor\",\"items\":[{\"icon\":\"🖼️\",\"label\":\"Canvas Art\"},{\"icon\":\"🪞\",\"label\":\"Mirrors\"},{\"icon\":\"🕯️\",\"label\":\"Candle Holders\"},{\"icon\":\"🌿\",\"label\":\"Planters\"},{\"icon\":\"💡\",\"label\":\"Wall Lights\"},{\"icon\":\"🎨\",\"label\":\"Paintings\"}]},{\"tab\":\"Beddings\",\"items\":[{\"icon\":\"🛏️\",\"label\":\"Bed Sheets\"},{\"icon\":\"🛋️\",\"label\":\"Pillow Covers\"},{\"icon\":\"🧸\",\"label\":\"Comforters\"}]},{\"tab\":\"Nursery And Bedding\",\"items\":[{\"icon\":\"🍼\",\"label\":\"Baby Beds\"},{\"icon\":\"🧸\",\"label\":\"Crib Sheets\"},{\"icon\":\"🌙\",\"label\":\"Night Lights\"}]},{\"tab\":\"Mosaic\",\"items\":[{\"icon\":\"🔷\",\"label\":\"Mosaic Tiles\"},{\"icon\":\"🌀\",\"label\":\"Art Panels\"},{\"icon\":\"🎭\",\"label\":\"Geometric Art\"}]},{\"tab\":\"Rugs\",\"items\":[{\"icon\":\"🟫\",\"label\":\"Area Rugs\"},{\"icon\":\"🟧\",\"label\":\"Door Mats\"},{\"icon\":\"🎭\",\"label\":\"Runner Rugs\"}]}]",
+      furnitureDataJson: "[{\"tab\":\"Sofas & Seating\",\"items\":[{\"icon\":\"🛋️\",\"label\":\"3-Seater Sofa\"},{\"icon\":\"🪑\",\"label\":\"Recliners\"},{\"icon\":\"🛋️\",\"label\":\"L-Shape Sofa\"},{\"icon\":\"🪑\",\"label\":\"Accent Chair\"},{\"icon\":\"🛏️\",\"label\":\"Sofa Cum Bed\"},{\"icon\":\"🎪\",\"label\":\"Ottoman\"}]},{\"tab\":\"Coffee Table\",\"items\":[{\"icon\":\"☕\",\"label\":\"Round Tables\"},{\"icon\":\"🪵\",\"label\":\"Wooden Tables\"},{\"icon\":\"🔲\",\"label\":\"Glass Top\"}]},{\"tab\":\"TV Unit\",\"items\":[{\"icon\":\"📺\",\"label\":\"Wall Mounted\"},{\"icon\":\"🗄️\",\"label\":\"Floor Standing\"}]},{\"tab\":\"Study Table\",\"items\":[{\"icon\":\"📚\",\"label\":\"Writing Desk\"},{\"icon\":\"💼\",\"label\":\"Computer Desk\"},{\"icon\":\"📖\",\"label\":\"Kids Study\"}]},{\"tab\":\"Beds\",\"items\":[{\"icon\":\"🛏️\",\"label\":\"King Size\"},{\"icon\":\"🛏️\",\"label\":\"Queen Size\"},{\"icon\":\"🪵\",\"label\":\"Wooden Bed\"}]}]",
+      sectionBgColor2: "#f0c8bc",
+      cardBgColor: "#ffffff",
+      titleColor: "#2a1c19",
+      subtitleColor: "#7a5550",
+      accentColor: "#d9736a",
+      badgeTextColor: "#ffffff",
+      badgeShadowColor: "#b85a52",
+      tabTextColor: "#9a7470",
+      tabActiveTextColor: "#d9736a",
+      tabUnderlineColor: "#d9736a",
+      tabBorderColor: "#f0e6e3",
+      itemCardBgColor: "#fdf4f3",
+      itemCardBorderColor: "#f0e0dc",
+      itemTextColor: "#7a5550",
+      arrowBgColor: "transparent",
+      arrowBorderColor: "#e8d8d5",
+      arrowTextColor: "#7a5550",    },
+  },  {
     type: "SearchBand", label: "Search Band", icon: "Search", category: "content",
     description: "Quick search chips bar for popular categories",
     fields: [
@@ -136,10 +380,14 @@ const _rawSections: SectionDefinition[] = [
     description: "Custom text content with HTML formatting",
     fields: [
       { key: "heading", label: "Heading", type: "text", defaultValue: "" },
+      { key: "headingSize", label: "Heading Size", type: "select", defaultValue: "medium", options: [{ label: "Small", value: "small" }, { label: "Medium", value: "medium" }, { label: "Large", value: "large" }] },
+      { key: "headingAlign", label: "Heading Alignment", type: "select", defaultValue: "center", options: [{ label: "Left", value: "left" }, { label: "Center", value: "center" }, { label: "Right", value: "right" }] },
       { key: "content", label: "Content (HTML)", type: "richtext", defaultValue: "<p>Share your brand story, mission, or anything that connects with your customers.</p>" },
-      { key: "textAlign", label: "Alignment", type: "select", defaultValue: "center", options: [{ label: "Left", value: "left" }, { label: "Center", value: "center" }, { label: "Right", value: "right" }] },
+      { key: "contentSize", label: "Content Text Size", type: "select", defaultValue: "medium", options: [{ label: "Small", value: "small" }, { label: "Medium", value: "medium" }, { label: "Large", value: "large" }] },
+      { key: "contentAlign", label: "Content Alignment", type: "select", defaultValue: "center", options: [{ label: "Left", value: "left" }, { label: "Center", value: "center" }, { label: "Right", value: "right" }] },
+      { key: "textAlign", label: "Alignment (Legacy)", type: "select", defaultValue: "center", options: [{ label: "Left", value: "left" }, { label: "Center", value: "center" }, { label: "Right", value: "right" }] },
     ],
-    defaultSettings: { heading: "", content: "<p>Share your brand story, mission, or anything that connects with your customers.</p>", textAlign: "center" },
+    defaultSettings: { heading: "", headingSize: "medium", headingAlign: "center", content: "<p>Share your brand story, mission, or anything that connects with your customers.</p>", contentSize: "medium", contentAlign: "center", textAlign: "center" },
   },
   {
     type: "ImageWithText", label: "Image with Text", icon: "Columns2", category: "content",
@@ -164,7 +412,7 @@ const _rawSections: SectionDefinition[] = [
       { key: "col1Text", label: "Column 1 Text", type: "textarea", defaultValue: "Every product is handpicked for quality and durability." },
       { key: "col1Image", label: "Column 1 Image", type: "image", defaultValue: "" },
       { key: "col2Title", label: "Column 2 Title", type: "text", defaultValue: "Free Shipping" },
-      { key: "col2Text", label: "Column 2 Text", type: "textarea", defaultValue: "Free delivery on all orders above ₹999." },
+      { key: "col2Text", label: "Column 2 Text", type: "textarea", defaultValue: "Free delivery on all orders above â‚¹999." },
       { key: "col2Image", label: "Column 2 Image", type: "image", defaultValue: "" },
       { key: "col3Title", label: "Column 3 Title", type: "text", defaultValue: "Easy Returns" },
       { key: "col3Text", label: "Column 3 Text", type: "textarea", defaultValue: "Hassle-free returns within 7 days of delivery." },
@@ -173,7 +421,7 @@ const _rawSections: SectionDefinition[] = [
       { key: "col4Text", label: "Column 4 Text", type: "textarea", defaultValue: "" },
       { key: "col4Image", label: "Column 4 Image", type: "image", defaultValue: "" },
     ],
-    defaultSettings: { heading: "Why Choose Us", columns: "3", col1Title: "Premium Quality", col1Text: "Every product is handpicked for quality and durability.", col1Image: "", col2Title: "Free Shipping", col2Text: "Free delivery on all orders above ₹999.", col2Image: "", col3Title: "Easy Returns", col3Text: "Hassle-free returns within 7 days of delivery.", col3Image: "", col4Title: "", col4Text: "", col4Image: "" },
+    defaultSettings: { heading: "Why Choose Us", columns: "3", col1Title: "Premium Quality", col1Text: "Every product is handpicked for quality and durability.", col1Image: "", col2Title: "Free Shipping", col2Text: "Free delivery on all orders above â‚¹999.", col2Image: "", col3Title: "Easy Returns", col3Text: "Hassle-free returns within 7 days of delivery.", col3Image: "", col4Title: "", col4Text: "", col4Image: "" },
   },
   {
     type: "CollapsibleContent", label: "Collapsible Content", icon: "ChevronDown", category: "content",
@@ -183,7 +431,7 @@ const _rawSections: SectionDefinition[] = [
       { key: "q1", label: "Question 1", type: "text", defaultValue: "What is your return policy?" },
       { key: "a1", label: "Answer 1", type: "textarea", defaultValue: "We offer hassle-free returns within 7 days of delivery. Products must be in original condition." },
       { key: "q2", label: "Question 2", type: "text", defaultValue: "Do you offer free shipping?" },
-      { key: "a2", label: "Answer 2", type: "textarea", defaultValue: "Yes! Free shipping on all orders above ₹999 across India." },
+      { key: "a2", label: "Answer 2", type: "textarea", defaultValue: "Yes! Free shipping on all orders above â‚¹999 across India." },
       { key: "q3", label: "Question 3", type: "text", defaultValue: "How long does delivery take?" },
       { key: "a3", label: "Answer 3", type: "textarea", defaultValue: "Most orders are delivered within 5-7 business days." },
       { key: "q4", label: "Question 4", type: "text", defaultValue: "" },
@@ -191,10 +439,10 @@ const _rawSections: SectionDefinition[] = [
       { key: "q5", label: "Question 5", type: "text", defaultValue: "" },
       { key: "a5", label: "Answer 5", type: "textarea", defaultValue: "" },
     ],
-    defaultSettings: { heading: "Frequently Asked Questions", q1: "What is your return policy?", a1: "We offer hassle-free returns within 7 days of delivery. Products must be in original condition.", q2: "Do you offer free shipping?", a2: "Yes! Free shipping on all orders above ₹999 across India.", q3: "How long does delivery take?", a3: "Most orders are delivered within 5-7 business days.", q4: "", a4: "", q5: "", a5: "" },
+    defaultSettings: { heading: "Frequently Asked Questions", q1: "What is your return policy?", a1: "We offer hassle-free returns within 7 days of delivery. Products must be in original condition.", q2: "Do you offer free shipping?", a2: "Yes! Free shipping on all orders above â‚¹999 across India.", q3: "How long does delivery take?", a3: "Most orders are delivered within 5-7 business days.", q4: "", a4: "", q5: "", a5: "" },
   },
 
-  /* ─── PRODUCT ──────────────────────────────────────────────── */
+  /* â”€â”€â”€ PRODUCT â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
   {
     type: "CategoryGrid", label: "Category Grid", icon: "Grid3x3", category: "product",
     description: "Circular category cards for shop-by-category",
@@ -301,6 +549,52 @@ const _rawSections: SectionDefinition[] = [
     defaultSettings: { eyebrow: "Sale picks", heading: "Premium finds, friendly prices", subheading: "Shop bestselling home decor products.", headingAlign: "center", columns: "4", mobileColumns: "2", rows: 2, gap: 24, productSource: "manual", productIds: [] },
   },
   {
+    type: "ProductGrid2",
+    label: "Product Grid 2.0",
+    icon: "PanelsTopLeft",
+    category: "product",
+    description: "Database-backed product cards with custom UI, max 6 visible + view-all CTA",
+    fields: [
+      { key: "heading", label: "Heading", type: "text", defaultValue: "Trending Picks", group: "content" },
+      { key: "subheading", label: "Subheading", type: "text", defaultValue: "Portrait cards with clean CTA.", group: "content" },
+      { key: "buttonText", label: "Button Text", type: "text", defaultValue: "Add To Cart", group: "content" },
+      { key: "viewAllText", label: "View All Button Text", type: "text", defaultValue: "View All Products", group: "content" },
+      { key: "viewAllLink", label: "View All Link", type: "url", defaultValue: "", group: "content" },
+      { key: "desktopColumns", label: "Columns (Desktop)", type: "select", defaultValue: "6", options: [
+        { label: "2 Columns", value: "2" },
+        { label: "3 Columns", value: "3" },
+        { label: "4 Columns", value: "4" },
+        { label: "5 Columns", value: "5" },
+        { label: "6 Columns", value: "6" }
+      ], group: "layout" },
+      { key: "mobileColumns", label: "Columns (Mobile)", type: "select", defaultValue: "2", options: [
+        { label: "1 Column", value: "1" },
+        { label: "2 Columns", value: "2" }
+      ], group: "layout" },
+      { key: "gap", label: "Gap (px)", type: "range", defaultValue: 16, min: 8, max: 32, step: 2, group: "layout" },
+      { key: "cardRadius", label: "Card Radius (px)", type: "range", defaultValue: 14, min: 4, max: 28, step: 1, group: "layout" },
+      { key: "productSource", label: "Product Source", type: "select", defaultValue: "manual", options: [
+        { label: "Manual Selection", value: "manual" },
+        { label: "All Products", value: "all" },
+        { label: "Latest Products", value: "latest" }
+      ], group: "products" },
+      { key: "productIds", label: "Select Products", type: "product-list", defaultValue: [], group: "products", helpText: "Manual source me yahi products show honge." },
+    ],
+    defaultSettings: {
+      heading: "Trending Picks",
+      subheading: "Portrait cards with clean CTA.",
+      buttonText: "Add To Cart",
+      viewAllText: "View All Products",
+      viewAllLink: "",
+      desktopColumns: "6",
+      mobileColumns: "2",
+      gap: 16,
+      cardRadius: 14,
+      productSource: "manual",
+      productIds: []
+    },
+  },
+  {
     type: "FeaturedCollection", label: "Featured Collection", icon: "Star", category: "product",
     description: "Highlight a specific collection with its products",
     fields: [
@@ -321,7 +615,7 @@ const _rawSections: SectionDefinition[] = [
     defaultSettings: { heading: "Featured Product", productSlug: "", showDescription: true },
   },
 
-  /* ─── MEDIA ────────────────────────────────────────────────── */
+  /* â”€â”€â”€ MEDIA â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
   {
     type: "Video", label: "Video", icon: "Play", category: "media",
     description: "Embed YouTube or custom video",
@@ -347,7 +641,7 @@ const _rawSections: SectionDefinition[] = [
     defaultSettings: { heading: "As featured in", logo1: "", logo2: "", logo3: "", logo4: "", logo5: "" },
   },
 
-  /* ─── TRUST ────────────────────────────────────────────────── */
+  /* â”€â”€â”€ TRUST â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
   {
     type: "PromisesSection", label: "Trust Badges", icon: "ShieldCheck", category: "trust",
     description: "Key value propositions with icons",
@@ -372,7 +666,7 @@ const _rawSections: SectionDefinition[] = [
     defaultSettings: { heading: "What Our Customers Say", testimonial1Name: "Priya S.", testimonial1Text: "Beautiful products and fast delivery. The quality exceeded my expectations!", testimonial2Name: "Rahul M.", testimonial2Text: "Love the curated collection. Every piece I bought looks amazing in my living room.", testimonial3Name: "Sneha K.", testimonial3Text: "The best home decor shopping experience online. Will definitely order again!" },
   },
 
-  /* ─── FORM ─────────────────────────────────────────────────── */
+  /* â”€â”€â”€ FORM â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
   {
     type: "Newsletter", label: "Email Signup", icon: "Mail", category: "form",
     description: "Newsletter subscription form with heading",
@@ -396,7 +690,7 @@ const _rawSections: SectionDefinition[] = [
     defaultSettings: { heading: "Get in Touch", subheading: "Have a question? We'd love to hear from you.", buttonText: "Send Message", showPhone: true },
   },
 
-  /* ─── UTILITY ──────────────────────────────────────────────── */
+  /* â”€â”€â”€ UTILITY â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
   {
     type: "SeoArticle", label: "SEO Text", icon: "FileText", category: "utility",
     description: "SEO-friendly content block with heading and paragraph fields",
@@ -506,7 +800,7 @@ const _rawSections: SectionDefinition[] = [
   },
 ];
 
-/* ─── Global spacing & style fields auto-injected into every section ─ */
+/* â”€â”€â”€ Global spacing & style fields auto-injected into every section â”€ */
 const globalFields = [
   { key: "sectionPaddingTop", label: "Padding Top (px)", type: "range" as const, defaultValue: 24, min: 0, max: 120, step: 4, group: "spacing" },
   { key: "sectionPaddingBottom", label: "Padding Bottom (px)", type: "range" as const, defaultValue: 24, min: 0, max: 120, step: 4, group: "spacing" },
@@ -529,3 +823,7 @@ export const sectionRegistry = _rawSections;
 export function getSectionDef(type: string): SectionDefinition | undefined {
   return sectionRegistry.find((s) => s.type === type);
 }
+
+
+
+

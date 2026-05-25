@@ -247,9 +247,24 @@ function StorefrontBannerStrip({ settings }: { settings: Record<string, any>; th
 /* ─── Missing Components ────────────────────────────────────────── */
 
 function StorefrontRichText({ settings }: { settings: Record<string, any> }) {
+  const headingAlign = settings.headingAlign === "left" || settings.headingAlign === "right"
+    ? settings.headingAlign
+    : (settings.textAlign === "left" || settings.textAlign === "right" ? settings.textAlign : "center");
+  const contentAlign = settings.contentAlign === "left" || settings.contentAlign === "right"
+    ? settings.contentAlign
+    : (settings.textAlign === "left" || settings.textAlign === "right" ? settings.textAlign : "center");
+  const headingSize = settings.headingSize === "small" ? "1.15rem" : settings.headingSize === "large" ? "1.8rem" : "1.45rem";
+  const contentSize = settings.contentSize === "small" ? "0.92rem" : settings.contentSize === "large" ? "1.08rem" : "1rem";
   return (
-    <section className="qh-container qh-section-pad text-center">
-      <div dangerouslySetInnerHTML={{ __html: settings.content || "" }} />
+    <section className="qh-container qh-section-pad">
+      <div>
+        {settings.heading ? (
+          <h2 className="mb-4 font-display font-black text-text-main" style={{ fontSize: headingSize, lineHeight: 1.2, textAlign: headingAlign }}>
+            {settings.heading}
+          </h2>
+        ) : null}
+        <div className="qh-seo-copy max-w-none text-text-muted" style={{ fontSize: contentSize, textAlign: contentAlign }} dangerouslySetInnerHTML={{ __html: settings.content || "" }} />
+      </div>
     </section>
   );
 }

@@ -1,6 +1,10 @@
 {
   "activePreset": "vibrant-sunshine",
   "customOverrides": {
-    "--color-text-main": "#000000"
+    "--color-bg-main": "#f7f7f7",
+    "--color-text-main": "#000000",
+    "--color-brand-accent": "#d4b483",
+    "--color-brand-primary": "#d4b483",
+    "--color-brand-secondary": "#d4b483"
   }
 }

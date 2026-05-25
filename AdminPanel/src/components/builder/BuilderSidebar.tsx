@@ -18,11 +18,33 @@ import { withSiteId } from "@/lib/site-context";
 
 function FieldInput({ field, value, onChange }: { field: FieldSchema; value: any; onChange: (val: any) => void }) {
   const base = "w-full rounded-lg border border-[#c9cccf] bg-white px-3 py-2 text-[13px] text-[#202223] transition-colors focus:border-[#5c6ac4] focus:outline-none focus:ring-2 focus:ring-[#5c6ac4]/20";
+  const isoToDateTimeLocal = (isoValue: any) => {
+    if (!isoValue) return "";
+    const d = new Date(String(isoValue));
+    if (Number.isNaN(d.getTime())) return "";
+    const offsetMs = d.getTimezoneOffset() * 60000;
+    return new Date(d.getTime() - offsetMs).toISOString().slice(0, 16);
+  };
+  const dateTimeLocalToIso = (localValue: string) => {
+    if (!localValue) return "";
+    const d = new Date(localValue);
+    if (Number.isNaN(d.getTime())) return "";
+    return d.toISOString();
+  };
 
   switch (field.type) {
     case "text":
     case "url":
       return <input type="text" value={value ?? ""} onChange={(e) => onChange(e.target.value)} placeholder={field.placeholder || (field.type === "url" ? "https://..." : "")} className={base} />;
+    case "datetime":
+      return (
+        <input
+          type="datetime-local"
+          value={isoToDateTimeLocal(value)}
+          onChange={(e) => onChange(dateTimeLocalToIso(e.target.value))}
+          className={base}
+        />
+      );
     case "textarea":
     case "richtext":
       return <textarea value={value ?? ""} onChange={(e) => onChange(e.target.value)} rows={field.type === "richtext" ? 5 : 3} className={base + " resize-y"} />;

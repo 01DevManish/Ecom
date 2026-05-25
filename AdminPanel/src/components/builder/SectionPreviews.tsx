@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Builder Canvas Section Previews
  * 
  * Each component renders a WYSIWYG preview of a storefront section.
@@ -15,7 +15,7 @@ import type { Section } from "@/lib/builder/types";
 import { withSiteId } from "@/lib/site-context";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-/* ─── BannerStrip ──────────────────────────────────────────── */
+/* â”€â”€â”€ BannerStrip â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
 export function BannerStripPreview({ settings }: { settings: Section["settings"] }) {
   return (
@@ -31,7 +31,7 @@ export function BannerStripPreview({ settings }: { settings: Section["settings"]
   );
 }
 
-/* ─── HeroBanner (matches HeroSection.tsx 1:1) ─────────────── */
+/* â”€â”€â”€ HeroBanner (matches HeroSection.tsx 1:1) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
 export function HeroBannerPreview({ settings }: { settings: Section["settings"] }) {
   const heading = settings.heading || "Buy Home Decor Items Online for Every Indian Home";
@@ -54,7 +54,7 @@ export function HeroBannerPreview({ settings }: { settings: Section["settings"] 
             <div className="w-full max-w-xl p-5 md:p-10">
           {badgeText && (
                 <div className="mb-4 w-fit rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-[#202223] inline-flex items-center">
-              ✨ {badgeText}
+              âœ¨ {badgeText}
             </div>
           )}
               <h1 className="font-display text-[1.75rem] font-black leading-tight text-white md:text-[2.6rem]">
@@ -74,9 +74,9 @@ export function HeroBannerPreview({ settings }: { settings: Section["settings"] 
             )}
               </div>
               <div className="mt-6 bp-features font-bold text-white/95">
-            {feature1 && <div className="flex items-center gap-2">🚚 {feature1}</div>}
-            {feature2 && <div className="flex items-center gap-2">🛡️ {feature2}</div>}
-            {feature3 && <div className="flex items-center gap-2">✨ {feature3}</div>}
+            {feature1 && <div className="flex items-center gap-2">ðŸšš {feature1}</div>}
+            {feature2 && <div className="flex items-center gap-2">ðŸ›¡ï¸ {feature2}</div>}
+            {feature3 && <div className="flex items-center gap-2">âœ¨ {feature3}</div>}
               </div>
             </div>
           </div>
@@ -86,7 +86,7 @@ export function HeroBannerPreview({ settings }: { settings: Section["settings"] 
   );
 }
 
-/* ─── SearchBand (matches page.tsx search chips) ───────────── */
+/* â”€â”€â”€ SearchBand (matches page.tsx search chips) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
 export function SearchBandPreview({ settings }: { settings: Section["settings"] }) {
   const chips = (settings.chips || "").split(",").map((c: string) => c.trim()).filter(Boolean);
@@ -104,7 +104,7 @@ export function SearchBandPreview({ settings }: { settings: Section["settings"] 
   );
 }
 
-/* ─── CategoryGrid (matches CategoryGrid.tsx) ──────────────── */
+/* â”€â”€â”€ CategoryGrid (matches CategoryGrid.tsx) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
 export function CategoryGridPreview({ settings }: { settings: Section["settings"] }) {
   const eyebrow = settings.eyebrow || "Shop by category";
@@ -142,7 +142,7 @@ export function CategoryGridPreview({ settings }: { settings: Section["settings"
   );
 }
 
-/* ─── CollectionsSection (matches CollectionsSection.tsx) ──── */
+/* â”€â”€â”€ CollectionsSection (matches CollectionsSection.tsx) â”€â”€â”€â”€ */
 
 export function CollectionsSectionPreview({ settings }: { settings: Section["settings"] }) {
   const eyebrow = settings.eyebrow || "Collections";
@@ -179,12 +179,12 @@ export function CollectionsSectionPreview({ settings }: { settings: Section["set
 
       {!collectionSlug ? (
         <div className="rounded-xl border-2 border-dashed border-border p-8 text-center text-text-muted bg-background-elevated">
-          📂 Please select a collection in the sidebar settings.
+          ðŸ“‚ Please select a collection in the sidebar settings.
         </div>
       ) : loading ? (
         <div className="text-center text-text-muted py-8 bg-background-elevated rounded-xl border border-border">Loading collection preview...</div>
       ) : selectedCol ? (
-        /* Single premium collection row layout — exactly 1 collection per row */
+        /* Single premium collection row layout â€” exactly 1 collection per row */
         <div className="group rounded-2xl border border-border bg-background-elevated overflow-hidden shadow-soft transition-all duration-base hover:shadow-dropdown">
           <div className="grid md:grid-cols-12 items-stretch divide-y md:divide-y-0 md:divide-x divide-border">
             {/* Info and Banner block (left 5 columns) */}
@@ -194,7 +194,7 @@ export function CollectionsSectionPreview({ settings }: { settings: Section["set
                   <span className="rounded-full bg-brand-primary/10 px-3 py-1 text-xs font-bold text-brand-primary">Collection Spotlight</span>
                   {selectedCol.is_active === false && (
                     <span className="rounded-full bg-[#ffe0b2] border border-[#ffb74d] px-2.5 py-0.5 text-[10px] font-bold text-[#e65100] inline-flex items-center gap-1 shadow-sm animate-pulse">
-                      ⚠️ Hidden from Storefront
+                      âš ï¸ Hidden from Storefront
                     </span>
                   )}
                 </div>
@@ -205,7 +205,7 @@ export function CollectionsSectionPreview({ settings }: { settings: Section["set
               </div>
               <div className="mt-6 pt-4 border-t border-border/50 flex items-center justify-between">
                 <span className="text-xs font-semibold text-text-soft">{selectedCol.products?.length || 0} product(s) inside</span>
-                <span className="text-sm font-bold text-brand-primary group-hover:translate-x-1 transition-transform">View Collection →</span>
+                <span className="text-sm font-bold text-brand-primary group-hover:translate-x-1 transition-transform">View Collection â†’</span>
               </div>
             </div>
             {/* Products grid preview (right 7 columns) */}
@@ -237,7 +237,7 @@ export function CollectionsSectionPreview({ settings }: { settings: Section["set
   );
 }
 
-/* ─── ProductGrid (matches page.tsx product section) ───────── */
+/* â”€â”€â”€ ProductGrid (matches page.tsx product section) â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
 export function ProductGridPreview({ settings }: { settings: Section["settings"] }) {
   const eyebrow = settings.eyebrow || "Sale picks";
@@ -281,9 +281,9 @@ export function ProductGridPreview({ settings }: { settings: Section["settings"]
       </div>
       <div className="mb-3 flex items-center gap-2 text-[11px] text-text-muted">
         <span className="rounded bg-background-soft px-2 py-0.5 font-semibold">
-          {source === "manual" ? `Manual • ${selectedIds.length} selected` : source === "latest" ? "Latest" : "All"}
+          {source === "manual" ? `Manual â€¢ ${selectedIds.length} selected` : source === "latest" ? "Latest" : "All"}
         </span>
-        <span>{cols}×{rows} = {total} cards</span>
+        <span>{cols}Ã—{rows} = {total} cards</span>
       </div>
       <div style={{ display: "grid", gridTemplateColumns: `repeat(${cols}, 1fr)`, gap: `${gap}px` }}>
         {cards.map((p, i) => (
@@ -294,7 +294,7 @@ export function ProductGridPreview({ settings }: { settings: Section["settings"]
               ) : (
                 <div className="flex h-full items-center justify-center text-sm text-text-soft">Product {i + 1}</div>
               )}
-              {p && <div className="absolute right-2 top-2 flex items-center gap-1 rounded-full bg-black/60 px-2 py-0.5 text-[10px] font-bold text-yellow-400">★ 4.5</div>}
+              {p && <div className="absolute right-2 top-2 flex items-center gap-1 rounded-full bg-black/60 px-2 py-0.5 text-[10px] font-bold text-yellow-400">â˜… 4.5</div>}
               {p && Number(p.mrp) > Number(p.sale_price) && (
                 <div className="absolute left-2 top-2">
                   <span className="rounded-full bg-accent-sale px-2.5 py-0.5 text-[10px] font-bold text-white">
@@ -306,11 +306,11 @@ export function ProductGridPreview({ settings }: { settings: Section["settings"]
             <div className="space-y-2 p-3">
               <h3 className="line-clamp-2 text-sm font-bold leading-snug text-text-main">{p?.title || "Sample Product"}</h3>
               <div className="flex flex-wrap items-baseline gap-2">
-                <span className="text-base font-bold text-text-main">{p ? fmt(Number(p.sale_price || p.mrp || 599)) : "₹599"}</span>
+                <span className="text-base font-bold text-text-main">{p ? fmt(Number(p.sale_price || p.mrp || 599)) : "â‚¹599"}</span>
                 {p?.mrp && Number(p.mrp) > Number(p.sale_price) && <span className="text-xs text-text-soft line-through">{fmt(Number(p.mrp))}</span>}
               </div>
               <span className="inline-flex w-full items-center justify-center gap-1.5 rounded-full border border-border bg-background-elevated px-4 py-2 text-xs font-semibold text-text-main">
-                🛒 Add to Cart
+                ðŸ›’ Add to Cart
               </span>
             </div>
           </div>
@@ -322,18 +322,95 @@ export function ProductGridPreview({ settings }: { settings: Section["settings"]
 
 
 
-/* ─── PromisesSection (matches page.tsx promises) ──────────── */
+/* â”€â”€â”€ PromisesSection (matches page.tsx promises) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+
+export function ProductGrid2Preview({ settings }: { settings: Section["settings"] }) {
+  const desktopCols = Math.min(6, Math.max(2, parseInt(settings.desktopColumns || "6")));
+  const mobileCols = Math.min(2, Math.max(1, parseInt(settings.mobileColumns || "2")));
+  const gap = Math.min(32, Math.max(8, Number(settings.gap || 16)));
+  const radius = Math.min(28, Math.max(4, Number(settings.cardRadius || 14)));
+  const buttonText = settings.buttonText || "Add To Cart";
+  const source = settings.productSource || "manual";
+  const selectedIds: string[] = settings.productIds || [];
+  const viewAllText = settings.viewAllText || "View All Products";
+
+  const [products, setProducts] = useState<any[]>([]);
+  useEffect(() => {
+    fetch(withSiteId("/api/admin/products"))
+      .then((r) => r.json())
+      .then((data) => setProducts(Array.isArray(data) ? data : []))
+      .catch(() => {});
+  }, []);
+
+  let allCards = products;
+  if (source === "manual" && selectedIds.length > 0) {
+    allCards = products.filter((p) => selectedIds.includes(p.id));
+  } else if (source === "latest") {
+    allCards = products.slice(0, 30);
+  }
+  const visibleCards = allCards.slice(0, 6);
+  const hasMore = allCards.length > 6;
+
+  const uid = `qh-pg2-preview-${Math.random().toString(36).slice(2, 7)}`;
+  const css = `
+    .${uid} { display: grid; grid-template-columns: repeat(${mobileCols}, minmax(0, 1fr)); gap: ${Math.min(gap, 12)}px; }
+    @media (min-width: 768px) {
+      .${uid} { grid-template-columns: repeat(${desktopCols}, minmax(0, 1fr)); gap: ${gap}px; }
+    }
+  `;
+
+  return (
+    <section className="qh-container qh-section-pad">
+      {(settings.heading || settings.subheading) && (
+        <div className="mb-5">
+          {settings.heading && <h2 className="font-display text-2xl font-black text-text-main md:text-3xl">{settings.heading}</h2>}
+          {settings.subheading && <p className="mt-2 text-sm text-text-muted md:text-base">{settings.subheading}</p>}
+        </div>
+      )}
+      <style dangerouslySetInnerHTML={{ __html: css }} />
+      <div className={uid}>
+        {visibleCards.map((card, i) => (
+          <article key={card.id || i} className="rounded-xl bg-[#efefef] p-2" style={{ borderRadius: `${Math.max(radius - 2, 8)}px` }}>
+            <div className="relative overflow-hidden" style={{ borderRadius: `${radius}px`, aspectRatio: "3 / 4" }}>
+              {card.image_url ? (
+                <img src={card.image_url} alt={card.title} className="absolute inset-0 h-full w-full object-cover" />
+              ) : (
+                <div className="absolute inset-0 bg-gradient-to-br from-[#f7be94] to-[#eb7e4d]" />
+              )}
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/75 via-black/35 to-transparent px-3 pb-4 pt-8 text-white">
+                <div className="mt-0.5 flex items-center gap-2">
+                  <span className="text-xl font-black leading-none">{`â‚¹${Math.round(Number(card.sale_price || card.mrp || 0))}`}</span>
+                  {Number(card.mrp) > Number(card.sale_price) && <span className="text-base text-white/70 line-through">{`â‚¹${Math.round(Number(card.mrp))}`}</span>}
+                </div>
+              </div>
+            </div>
+            <button type="button" className="mt-2 w-full rounded-[10px] border border-black/70 bg-white py-2 text-[13px] font-bold text-black md:text-sm">
+              {buttonText}
+            </button>
+          </article>
+        ))}
+      </div>
+      {hasMore && (
+        <div className="mt-5 flex justify-center">
+          <span className="inline-flex rounded-[10px] border border-black/70 bg-white px-5 py-2 text-sm font-semibold text-black">
+            {viewAllText}
+          </span>
+        </div>
+      )}
+    </section>
+  );
+}
 
 export function PromisesSectionPreview({ settings }: { settings: Section["settings"] }) {
   const eyebrow = settings.eyebrow || "Why choose us";
   const heading = settings.heading || "A calmer, warmer way to shop for home";
 
   const promises = [
-    { emoji: "✨", title: "Curated decor", text: "Thoughtfully selected pieces with warmth and personality." },
-    { emoji: "🛡️", title: "Premium quality", text: "Affordable luxury without fragile showroom energy." },
-    { emoji: "↩️", title: "Easy returns", text: "A smoother post-purchase experience for real life." },
-    { emoji: "🚚", title: "Fast shipping", text: "Quick dispatch across India on everyday favourites." },
-    { emoji: "💳", title: "Secure payments", text: "UPI, cards, wallets, and protected checkout flows." },
+    { emoji: "âœ¨", title: "Curated decor", text: "Thoughtfully selected pieces with warmth and personality." },
+    { emoji: "ðŸ›¡ï¸", title: "Premium quality", text: "Affordable luxury without fragile showroom energy." },
+    { emoji: "â†©ï¸", title: "Easy returns", text: "A smoother post-purchase experience for real life." },
+    { emoji: "ðŸšš", title: "Fast shipping", text: "Quick dispatch across India on everyday favourites." },
+    { emoji: "ðŸ’³", title: "Secure payments", text: "UPI, cards, wallets, and protected checkout flows." },
   ];
 
   return (
@@ -357,7 +434,7 @@ export function PromisesSectionPreview({ settings }: { settings: Section["settin
   );
 }
 
-/* ─── Newsletter (matches page.tsx newsletter) ─────────────── */
+/* â”€â”€â”€ Newsletter (matches page.tsx newsletter) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
 export function NewsletterPreview({ settings }: { settings: Section["settings"] }) {
   const eyebrow = settings.eyebrow || "Decor notes";
@@ -386,7 +463,7 @@ export function NewsletterPreview({ settings }: { settings: Section["settings"] 
   );
 }
 
-/* ─── SeoArticle (matches page.tsx SEO section) ────────────── */
+/* â”€â”€â”€ SeoArticle (matches page.tsx SEO section) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
 export function SeoArticlePreview({ settings }: { settings: Section["settings"] }) {
   const allowedTags = new Set(["h1", "h2", "h3", "h4", "h5", "h6"]);
@@ -422,7 +499,7 @@ export function SeoArticlePreview({ settings }: { settings: Section["settings"] 
   );
 }
 
-/* ─── Testimonials ─────────────────────────────────────────── */
+/* â”€â”€â”€ Testimonials â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
 export function TestimonialsPreview({ settings }: { settings: Section["settings"] }) {
   const testimonials = [
@@ -439,7 +516,7 @@ export function TestimonialsPreview({ settings }: { settings: Section["settings"
           <div key={i} className="qh-card p-6">
             <div className="mb-3 text-2xl text-brand-primary">"</div>
             <p className="text-sm leading-relaxed text-text-muted">{t.text}</p>
-            <p className="mt-4 text-sm font-semibold text-text-main">— {t.name}</p>
+            <p className="mt-4 text-sm font-semibold text-text-main">â€” {t.name}</p>
           </div>
         ))}
       </div>
@@ -447,17 +524,32 @@ export function TestimonialsPreview({ settings }: { settings: Section["settings"
   );
 }
 
-/* ─── RichText ─────────────────────────────────────────────── */
+/* â”€â”€â”€ RichText â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
 export function RichTextPreview({ settings }: { settings: Section["settings"] }) {
+  const headingAlign = settings.headingAlign === "left" || settings.headingAlign === "right"
+    ? settings.headingAlign
+    : (settings.textAlign === "left" || settings.textAlign === "right" ? settings.textAlign : "center");
+  const contentAlign = settings.contentAlign === "left" || settings.contentAlign === "right"
+    ? settings.contentAlign
+    : (settings.textAlign === "left" || settings.textAlign === "right" ? settings.textAlign : "center");
+  const headingSize = settings.headingSize === "small" ? "1.15rem" : settings.headingSize === "large" ? "1.8rem" : "1.45rem";
+  const contentSize = settings.contentSize === "small" ? "0.92rem" : settings.contentSize === "large" ? "1.08rem" : "1rem";
   return (
-    <section className="qh-container qh-section-pad text-center">
-      <div dangerouslySetInnerHTML={{ __html: settings.content || "" }} />
+    <section className="qh-container qh-section-pad">
+      <div>
+        {settings.heading ? (
+          <h2 className="mb-4 font-display font-black text-text-main" style={{ fontSize: headingSize, lineHeight: 1.2, textAlign: headingAlign }}>
+            {settings.heading}
+          </h2>
+        ) : null}
+        <div className="qh-seo-copy max-w-none text-text-muted" style={{ fontSize: contentSize, textAlign: contentAlign }} dangerouslySetInnerHTML={{ __html: settings.content || "" }} />
+      </div>
     </section>
   );
 }
 
-/* ─── ImageWithText ────────────────────────────────────────── */
+/* â”€â”€â”€ ImageWithText â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
 export function ImageWithTextPreview({ settings }: { settings: Section["settings"] }) {
   return (
@@ -471,7 +563,7 @@ export function ImageWithTextPreview({ settings }: { settings: Section["settings
   );
 }
 
-/* ─── FeaturedCollection ───────────────────────────────────── */
+/* â”€â”€â”€ FeaturedCollection â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
 export function FeaturedCollectionPreview({ settings }: { settings: Section["settings"] }) {
   return (
@@ -482,7 +574,7 @@ export function FeaturedCollectionPreview({ settings }: { settings: Section["set
   );
 }
 
-/* ─── Slideshow ─────────────────────────────────────────────── */
+/* â”€â”€â”€ Slideshow â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
 export function SlideshowPreview({ settings }: { settings: Section["settings"] }) {
   return (
@@ -500,7 +592,7 @@ export function SlideshowPreview({ settings }: { settings: Section["settings"] }
   );
 }
 
-/* ─── ImageGrid Preview ────────────────────────────────────── */
+/* â”€â”€â”€ ImageGrid Preview â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
 export function ImageGridPreview({ settings }: { settings: Section["settings"] }) {
   const gap = settings.gap ?? 12;
@@ -563,7 +655,7 @@ export function ImageGridPreview({ settings }: { settings: Section["settings"] }
       <style dangerouslySetInnerHTML={{ __html: css }} />
       <div className={uid}>
         <div className="qh-ig-large">
-          {renderSlot(settings.image1Url, settings.image1Alt, "Image 1 (Large — Left)")}
+          {renderSlot(settings.image1Url, settings.image1Alt, "Image 1 (Large â€” Left)")}
         </div>
         <div>
           {renderSlot(settings.image2Url, settings.image2Alt, "Image 2 (Top Right)")}
@@ -576,39 +668,309 @@ export function ImageGridPreview({ settings }: { settings: Section["settings"] }
   );
 }
 
-/* ─── ImageBanner Preview ──────────────────────────────────── */
+export function FiveGridPreview({ settings }: { settings: Section["settings"] }) {
+  const gap = Number(settings.gap ?? 16);
+  const radius = Number(settings.radius ?? 22);
+  const uid = `qh-preview-fivegrid-${Math.random().toString(36).slice(2, 8)}`;
+
+  const css = `
+    .${uid} { display: grid; gap: ${gap}px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .${uid} .fg-item { position: relative; min-height: 140px; overflow: hidden; }
+    .${uid} .fg-item-3, .${uid} .fg-item-5 { grid-column: 1 / -1; min-height: 170px; }
+    .${uid} .fg-item-2 { display: none; }
+    .${uid} .fg-overlay { position: absolute; inset: 0; z-index: 1; background: linear-gradient(to top, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.18) 56%, transparent 100%); }
+    .${uid} .fg-copy { position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; padding: 14px; }
+    .${uid} .fg-copy.right { text-align: right; }
+    .${uid} .fg-title { color: #fff; font-size: 13px; font-weight: 700; letter-spacing: 0.3px; line-height: 1.25; text-transform: uppercase; margin-bottom: 3px; }
+    .${uid} .fg-off { color: #f2f2f2; font-size: 10px; margin-bottom: 8px; }
+    .${uid} .fg-btn { display: inline-flex; align-items: center; justify-content: center; border-radius: 4px; background: #fff; color: #111; font-size: 10px; font-weight: 700; padding: 5px 12px; }
+    @media (min-width: 1024px) {
+      .${uid} {
+        grid-template-columns: 1.1fr 1fr 1fr;
+        grid-template-rows: repeat(2, minmax(220px, 1fr));
+      }
+      .${uid} .fg-item { min-height: 220px; }
+      .${uid} .fg-item-2 { display: block; }
+      .${uid} .fg-item-1 { grid-row: 1 / 3; grid-column: 1 / 2; min-height: 100%; }
+      .${uid} .fg-item-2 { grid-row: 1 / 2; grid-column: 2 / 3; }
+      .${uid} .fg-item-3 { grid-row: 1 / 2; grid-column: 3 / 4; }
+      .${uid} .fg-item-4 { grid-row: 2 / 3; grid-column: 2 / 3; }
+      .${uid} .fg-item-5 { grid-row: 2 / 3; grid-column: 3 / 4; }
+      .${uid} .fg-title { font-size: 14px; }
+      .${uid} .fg-off { font-size: 11px; }
+      .${uid} .fg-btn { font-size: 11px; padding: 6px 14px; }
+      .${uid} .fg-item-1 .fg-copy { padding: 18px; }
+      .${uid} .fg-item-1 .fg-title { font-size: 22px; line-height: 1.2; }
+      .${uid} .fg-item-1 .fg-off { font-size: 14px; }
+      .${uid} .fg-item-1 .fg-btn { padding: 8px 20px; font-size: 12px; }
+    }
+  `;
+
+  const items = [1, 2, 3, 4, 5].map((n) => ({
+    key: n,
+    image: settings[`image${n}Url`],
+    alt: settings[`image${n}Alt`] || `Grid image ${n}`,
+    title: settings[`image${n}Title`] || `Image ${n}`,
+    offer: settings[`image${n}Offer`] || "",
+    cta: settings[`image${n}Cta`] || "Shop Now",
+    textAlign: settings[`image${n}TextAlign`] === "right" ? "right" : "left",
+  }));
+
+  return (
+    <div style={{ maxWidth: "var(--container-max)", margin: "0 auto", padding: "16px 24px" }}>
+      <style dangerouslySetInnerHTML={{ __html: css }} />
+      <div className={uid}>
+        {items.map((item) => (
+          <div
+            key={item.key}
+            className={`fg-item fg-item-${item.key} relative overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200`}
+            style={{ borderRadius: `${radius}px` }}
+          >
+            {item.image ? (
+              <img src={item.image} alt={item.alt} className="absolute inset-0 h-full w-full object-cover" />
+            ) : (
+              <div className="absolute inset-0 flex items-center justify-center text-sm text-gray-500">Image {item.key}</div>
+            )}
+            <div className="fg-overlay" />
+            <div className={`fg-copy ${item.textAlign === "right" ? "right" : ""}`}>
+              <p className="fg-title">{item.title}</p>
+              {item.offer ? <p className="fg-off">{item.offer}</p> : null}
+              <span className="fg-btn">{item.cta}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* â”€â”€â”€ ImageBanner Preview â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
 export function ImageBannerPreview({ settings }: { settings: Section["settings"] }) {
   const height = settings.desktopHeight ?? 280;
   const radius = settings.borderRadius ?? 12;
   const fullWidth = settings.fullWidth ?? false;
   const imageUrl = settings.desktopImageUrl || settings.imageUrl || "";
+  const mobileImageUrl = settings.mobileImageUrl || imageUrl;
 
   return (
-    <div style={{ maxWidth: fullWidth ? "100%" : "var(--container-max)", margin: "0 auto", padding: fullWidth ? "0" : "16px 24px" }}>
-      <div
-        className="relative overflow-hidden bg-gradient-to-r from-gray-100 to-gray-200"
-        style={{
-          height: `${height}px`,
-          borderRadius: fullWidth ? "0" : `${radius}px`,
-        }}
-      >
-        {imageUrl ? (
-          <img src={imageUrl} alt={settings.altText || ""} className="absolute inset-0 h-full w-full object-cover" />
-        ) : (
-          <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 text-gray-400">
-            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
-            <span className="text-sm font-medium">Upload a banner image</span>
-            <span className="text-xs text-gray-300">Recommended: 1920 × {height}px</span>
-          </div>
-        )}
+    <section style={{ padding: "8px 0" }}>
+      <div style={{ maxWidth: fullWidth ? "100%" : "var(--container-max)", margin: "0 auto", padding: fullWidth ? 0 : "0 24px" }}>
+        <div
+          className="relative overflow-hidden bg-background-soft"
+          style={{ height: `${height}px`, borderRadius: fullWidth ? `0 0 ${Math.max(radius + 8, 20)}px ${Math.max(radius + 8, 20)}px` : `${radius}px` }}
+        >
+          {imageUrl ? (
+            <>
+              <img src={imageUrl} alt="" className="hidden h-full w-full object-cover md:block" />
+              <img src={mobileImageUrl} alt="" className="h-full w-full object-cover md:hidden" />
+            </>
+          ) : (
+            <div className="flex h-full w-full items-center justify-center text-sm font-medium text-text-soft">
+              Banner image preview
+            </div>
+          )}
+        </div>
       </div>
-    </div>
+    </section>
   );
 }
 
-/* ─── ReelImage Preview ────────────────────────────────────── */
+export function SlideBannerPreview({ settings }: { settings: Section["settings"] }) {
+  const slides = Array.from({ length: 15 }, (_, i) => {
+    const n = i + 1;
+    return { image: settings[`slide${n}Image`] || "", alt: settings[`slide${n}Alt`] || "" };
+  }).filter((s) => s.image);
+  const activeSlides = slides.length ? slides : [{ image: "", alt: "" }];
+  const [index, setIndex] = useState(0);
+  const autoPlay = settings.autoPlay !== false;
+  const intervalMs = Math.max(2, Number(settings.intervalSec || 4)) * 1000;
+  const radius = Math.max(0, Number(settings.radius || 16));
+  const mobileHeight = Math.max(80, Number(settings.heightMobile || 220));
+  const desktopHeight = Math.max(120, Number(settings.heightDesktop || 360));
+  const fullWidth = settings.sectionFullWidth === true;
+  const mobileAutoHeight = settings.mobileAutoHeight !== false;
+  const desktopAutoHeight = settings.desktopAutoHeight !== false;
+  const mobileFit = settings.fitMobile === "cover" ? "cover" : "contain";
+  const desktopFit = settings.fitDesktop === "cover" ? "cover" : "contain";
+  const mobileImageClass = mobileAutoHeight ? `block w-full h-auto object-${mobileFit}` : `h-full w-full object-${mobileFit}`;
+  const desktopImageClass = desktopAutoHeight ? `block w-full h-auto object-${desktopFit}` : `h-full w-full object-${desktopFit}`;
 
+  useEffect(() => {
+    if (!autoPlay || activeSlides.length <= 1) return;
+    const timer = setInterval(() => setIndex((prev) => (prev + 1) % activeSlides.length), intervalMs);
+    return () => clearInterval(timer);
+  }, [autoPlay, intervalMs, activeSlides.length]);
+
+  return (
+    <section className={`${fullWidth ? "w-full" : "qh-container"} qh-section-pad`}>
+      {settings.heading ? <h3 className="mb-3 text-sm font-bold text-text-main md:text-base">{settings.heading}</h3> : null}
+      <div className="relative overflow-hidden bg-[#8d67b7]" style={{ borderRadius: fullWidth ? "0" : `${radius}px` }}>
+        <div className="md:hidden" style={mobileAutoHeight ? {} : { height: `${mobileHeight}px` }}>
+          {activeSlides[index].image ? <img src={activeSlides[index].image} alt={activeSlides[index].alt} className={mobileImageClass} /> : <div className="flex h-full min-h-[120px] items-center justify-center bg-background-soft text-sm text-text-muted">Slide image</div>}
+        </div>
+        <div style={desktopAutoHeight ? {} : { height: `${desktopHeight}px` }} className="hidden md:block bg-black/10">
+          {activeSlides[index].image ? <img src={activeSlides[index].image} alt={activeSlides[index].alt} className={desktopImageClass} /> : <div className="flex h-full min-h-[200px] items-center justify-center bg-background-soft text-sm text-text-muted">Slide image</div>}
+        </div>
+        {activeSlides.length > 1 && (
+          <>
+            <button className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full border border-white/70 bg-transparent p-1.5 text-white md:left-4" onClick={() => setIndex((prev) => (prev - 1 + activeSlides.length) % activeSlides.length)}>
+              <ChevronLeft className="h-5 w-5" />
+            </button>
+            <button className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full border border-white/70 bg-transparent p-1.5 text-white md:right-4" onClick={() => setIndex((prev) => (prev + 1) % activeSlides.length)}>
+              <ChevronRight className="h-5 w-5" />
+            </button>
+          </>
+        )}
+      </div>
+    </section>
+  );
+}
+
+export function SaleBannerPreview({ settings }: { settings: Section["settings"] }) {
+  const endTime = new Date(settings.endDateTime || "").getTime();
+  const [now, setNow] = useState(Date.now());
+  useEffect(() => {
+    const t = setInterval(() => setNow(Date.now()), 1000);
+    return () => clearInterval(t);
+  }, []);
+  const diff = Math.max(0, endTime - now);
+  const days = Math.floor(diff / 86400000);
+  const hours = Math.floor((diff % 86400000) / 3600000);
+  const mins = Math.floor((diff % 3600000) / 60000);
+  const secs = Math.floor((diff % 60000) / 1000);
+
+  return (
+    <section className="qh-container qh-section-pad" style={{ paddingTop: "10px" }}>
+      <div className="grid gap-3 md:grid-cols-[1.1fr_1fr]">
+        <div className="rounded-2xl border border-[#e9adc4] bg-[#f7f7f7] px-4 py-3 md:px-5">
+          <p className="text-sm font-black text-[#121212] md:text-[18px]">Sale Ends In:</p>
+          <div className="mt-1 flex items-baseline gap-1.5 text-[#d14a35]">
+            {[days, hours, mins, secs].map((v, i) => (
+              <span key={i} className="text-[26px] font-black leading-none md:text-[40px]">{String(v).padStart(2, "0")}{i < 3 ? <span className="px-1">:</span> : null}</span>
+            ))}
+          </div>
+          <div className="mt-1 flex gap-4 text-[11px] font-medium text-[#2f2f2f] md:gap-6 md:text-sm"><span>Days</span><span>Hrs</span><span>Mins</span><span>Secs</span></div>
+        </div>
+        <div className="rounded-2xl border border-[#e9adc4] bg-[#f7f7f7] px-4 py-3 md:px-5">
+          <div className="grid grid-cols-4 gap-3 text-center text-[11px] text-[#5d5d5d] md:text-sm">
+            <div>25L+ Customers</div><div>Free Shipping</div><div>Free Installation</div><div>Best Warranty</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export function NewArrivalPreview({ settings }: { settings: Section["settings"] }) {
+  type Item = { icon: string; label: string };
+  type Group = { tab: string; items: Item[] };
+  const parse = (raw: any, fallback: Group[]): Group[] => {
+    try {
+      const p = JSON.parse(String(raw || "[]"));
+      if (Array.isArray(p) && p.length) {
+        return p
+          .map((g: any) => ({
+            tab: String(g?.tab || ""),
+            items: Array.isArray(g?.items)
+              ? g.items.map((it: any) => ({ icon: String(it?.icon || "*"), label: String(it?.label || "Item") }))
+              : [],
+          }))
+          .filter((g: Group) => g.tab);
+      }
+    } catch {}
+    return fallback;
+  };
+
+  const accessory = parse(settings.accessoryDataJson, [{ tab: "Wall Decor", items: [{ icon: "*", label: "Canvas Art" }, { icon: "*", label: "Mirrors" }] }]);
+  const furniture = parse(settings.furnitureDataJson, [{ tab: "Sofas & Seating", items: [{ icon: "*", label: "3-Seater Sofa" }, { icon: "*", label: "Recliners" }] }]);
+  const [cat, setCat] = useState<"accessory" | "furniture">("accessory");
+  const data = cat === "accessory" ? accessory : furniture;
+  const [tab, setTab] = useState(0);
+  const active = data[Math.min(tab, Math.max(0, data.length - 1))] || { tab: "", items: [] as Item[] };
+
+  const c = {
+    sectionBg: settings.sectionBgColor2 || "#f0c8bc",
+    cardBg: settings.cardBgColor || "#ffffff",
+    title: settings.titleColor || "#2a1c19",
+    subtitle: settings.subtitleColor || "#7a5550",
+    accent: settings.accentColor || "#d9736a",
+    badgeText: settings.badgeTextColor || "#ffffff",
+    tabText: settings.tabTextColor || "#9a7470",
+    tabActiveText: settings.tabActiveTextColor || "#d9736a",
+    tabUnderline: settings.tabUnderlineColor || "#d9736a",
+    tabBorder: settings.tabBorderColor || "#f0e6e3",
+    itemCardBg: settings.itemCardBgColor || "#fdf4f3",
+    itemCardBorder: settings.itemCardBorderColor || "#f0e0dc",
+    itemText: settings.itemTextColor || "#7a5550",
+    arrowBg: settings.arrowBgColor || "transparent",
+    arrowBorder: settings.arrowBorderColor || "#e8d8d5",
+    arrowText: settings.arrowTextColor || "#7a5550",
+  };
+
+  return (
+    <section className="qh-container qh-section-pad">
+      <div className="mx-auto w-full max-w-[640px] overflow-hidden rounded-[22px] shadow-[0_16px_56px_rgba(140,60,50,0.18)]" style={{ backgroundColor: c.sectionBg }}>
+        <div className="px-4 pt-6 md:px-6 md:pt-7">
+          <div className="flex items-center gap-2">
+            <span className="inline-flex items-center justify-center rounded-[7px] px-3 py-1 font-serif text-[1.05rem] font-black tracking-[0.06em]" style={{ backgroundColor: c.accent, color: c.badgeText }}>
+              {settings.badgeText || "NEW"}
+            </span>
+            <h2 className="font-serif text-2xl font-bold md:text-[1.75rem]" style={{ color: c.title }}>{settings.title || "Arrivals"}</h2>
+          </div>
+          <p className="mt-2 max-w-[370px] text-[0.87rem] leading-relaxed" style={{ color: c.subtitle }}>{settings.subtitle || "Be the first to explore our newest furniture and home essentials, crafted for modern homes."}</p>
+          <div className="mt-4 flex items-end gap-1">
+            <button
+              className="relative rounded-t-[16px] px-4 pb-2 pt-3 text-[0.9rem]"
+              style={{ backgroundColor: cat === "accessory" ? c.cardBg : "transparent", color: cat === "accessory" ? c.tabActiveText : c.tabText, fontWeight: cat === "accessory" ? 700 : 500 }}
+              onClick={() => {
+                setCat("accessory");
+                setTab(0);
+              }}
+            >
+              {settings.accessoryLabel || "Accessory"}
+              {cat === "accessory" ? <span className="absolute bottom-0 left-[20%] right-[20%] h-[2.5px] rounded" style={{ backgroundColor: c.tabUnderline }} /> : null}
+            </button>
+            <button
+              className="relative rounded-t-[16px] px-4 pb-2 pt-3 text-[0.9rem]"
+              style={{ backgroundColor: cat === "furniture" ? c.cardBg : "transparent", color: cat === "furniture" ? c.tabActiveText : c.tabText, fontWeight: cat === "furniture" ? 700 : 500 }}
+              onClick={() => {
+                setCat("furniture");
+                setTab(0);
+              }}
+            >
+              {settings.furnitureLabel || "Furniture"}
+              {cat === "furniture" ? <span className="absolute bottom-0 left-[20%] right-[20%] h-[2.5px] rounded" style={{ backgroundColor: c.tabUnderline }} /> : null}
+            </button>
+          </div>
+        </div>
+        <div style={{ backgroundColor: c.cardBg }}>
+          <div className="flex items-center overflow-x-auto border-b px-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:px-[18px]" style={{ borderBottomColor: c.tabBorder }}>
+            {data.map((t: Group, i: number) => (
+              <button key={t.tab + i} className="relative shrink-0 whitespace-nowrap px-3.5 pb-3 pt-3.5 text-[0.86rem]" style={{ color: i === tab ? c.title : c.tabText, fontWeight: i === tab ? 700 : 500 }} onClick={() => setTab(i)}>
+                {t.tab}
+                {i === tab ? <span className="absolute bottom-0 left-1/2 h-[2.5px] w-[70%] -translate-x-1/2 rounded" style={{ backgroundColor: c.tabUnderline }} /> : null}
+              </button>
+            ))}
+            <button className="ml-auto inline-flex h-[30px] w-[30px] shrink-0 items-center justify-center rounded-full border text-sm" style={{ backgroundColor: c.arrowBg, borderColor: c.arrowBorder, color: c.arrowText }} onClick={() => setTab((p) => (p + 1) % Math.max(1, data.length))}>
+              {">"}
+            </button>
+          </div>
+          <div className="p-4 pt-4 md:p-4 md:pt-[18px]">
+            <div className="grid grid-cols-2 gap-[11px] md:grid-cols-3">
+              {active.items.map((item: Item, idx: number) => (
+                <div key={item.label + idx} className="rounded-[13px] border px-2 py-3 text-center" style={{ backgroundColor: c.itemCardBg, borderColor: c.itemCardBorder }}>
+                  <span className="mb-1 block text-[1.85rem]">{item.icon}</span>
+                  <span className="block text-[0.73rem] font-medium" style={{ color: c.itemText }}>{item.label}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
 export function ReelImagePreview({ settings }: { settings: Section["settings"] }) {
   const cardH = settings.cardHeight ?? 400;
   const gap = settings.gap ?? 16;
@@ -650,16 +1012,23 @@ export function ReelImagePreview({ settings }: { settings: Section["settings"] }
     const container = containerRef.current;
     if (!container) return;
 
-    const scrollAmount = direction === "left" ? -container.clientWidth * 0.75 : container.clientWidth * 0.75;
+    const scrollAmount = direction === "left" ? -container.clientWidth : container.clientWidth;
     container.scrollBy({ left: scrollAmount, behavior: "smooth" });
   };
 
   const scrollContainerCss = `
     .qh-reel-scroll-preview::-webkit-scrollbar { display: none; }
     .qh-reel-scroll-preview { -ms-overflow-style: none; scrollbar-width: none; }
-    @media (max-width: 768px) {
+    
+    .qh-reel-card-preview {
+      width: calc(50% - ${gap / 2}px);
+      height: ${Math.min(cardH, 340)}px;
+    }
+    
+    @media (min-width: 768px) {
       .qh-reel-card-preview {
-        height: ${Math.min(cardH, 320)}px !important;
+        width: calc(25% - ${(gap * 3) / 4}px);
+        height: ${cardH}px;
       }
     }
   `;
@@ -675,81 +1044,73 @@ export function ReelImagePreview({ settings }: { settings: Section["settings"] }
       {settings.heading && <h2 className="mb-8 text-center font-display text-3xl font-black tracking-tight text-text-main md:text-4xl">{settings.heading}</h2>}
       <style dangerouslySetInnerHTML={{ __html: scrollContainerCss }} />
       
-      <div className="relative group/arrows w-full">
-        {/* Left Arrow */}
-        {canScrollLeft && (
-          <button
-            onClick={() => scroll("left")}
-            className="absolute left-4 top-1/2 -translate-y-1/2 z-20 hidden md:flex h-12 w-12 items-center justify-center rounded-full bg-background-elevated text-text-main shadow-[0_4px_20px_rgba(0,0,0,0.15)] transition-all hover:scale-105 border border-border/50"
-            aria-label="Previous slide"
+      <div className="mx-auto max-w-7xl px-4 md:px-8">
+        <div className="relative group/arrows w-full">
+          {/* Left Arrow */}
+          {canScrollLeft && (
+            <button
+              onClick={() => scroll("left")}
+              className="absolute -left-4 md:-left-6 top-1/2 -translate-y-1/2 z-20 hidden md:flex h-12 w-12 items-center justify-center rounded-full bg-white text-black shadow-lg transition-transform hover:scale-105 hover:bg-gray-50 border border-gray-200"
+              aria-label="Previous slide"
+            >
+              <ChevronLeft className="h-6 w-6 stroke-[2]" />
+            </button>
+          )}
+
+          {/* Right Arrow */}
+          {canScrollRight && (
+            <button
+              onClick={() => scroll("right")}
+              className="absolute -right-4 md:-right-6 top-1/2 -translate-y-1/2 z-20 hidden md:flex h-12 w-12 items-center justify-center rounded-full bg-white text-black shadow-lg transition-transform hover:scale-105 hover:bg-gray-50 border border-gray-200"
+              aria-label="Next slide"
+            >
+              <ChevronRight className="h-6 w-6 stroke-[2]" />
+            </button>
+          )}
+
+          <div
+            ref={containerRef}
+            className="qh-reel-scroll-preview flex overflow-x-auto snap-x snap-mandatory"
+            style={{ gap: `${gap}px` }}
           >
-            <ChevronLeft className="h-6 w-6 stroke-[2]" />
-          </button>
-        )}
-
-        {/* Right Arrow */}
-        {canScrollRight && (
-          <button
-            onClick={() => scroll("right")}
-            className="absolute right-4 top-1/2 -translate-y-1/2 z-20 hidden md:flex h-12 w-12 items-center justify-center rounded-full bg-background-elevated text-text-main shadow-[0_4px_20px_rgba(0,0,0,0.15)] transition-all hover:scale-105 border border-border/50"
-            aria-label="Next slide"
-          >
-            <ChevronRight className="h-6 w-6 stroke-[2]" />
-          </button>
-        )}
-
-        <div
-          ref={containerRef}
-          className="qh-reel-scroll-preview flex overflow-x-auto snap-x snap-mandatory px-4 md:px-12"
-          style={{ gap: \`\${gap}px\` }}
-        >
-          {displayItems.map((reel, i) => {
-            const inner = (
-              <div
-                className="qh-reel-card-preview relative overflow-hidden group/card bg-gray-100 shadow-sm transition-shadow hover:shadow-lg"
-                style={{
-                  height: \`\${cardH}px\`,
-                  aspectRatio: "9/16",
-                  borderRadius: \`\${radius}px\`,
-                }}
-              >
-                {reel.image ? (
-                  <img
-                    src={reel.image}
-                    alt={reel.text || ""}
-                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover/card:scale-110"
-                  />
-                ) : (
-                  <div className="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-200 flex flex-col items-center justify-center text-gray-400 gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
-                    <span className="text-xs font-medium">{reel.text}</span>
-                  </div>
-                )}
-                {reel.image && <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 transition-opacity duration-300 group-hover/card:opacity-100" />}
-                {reel.text && reel.image && (
-                  <div className="absolute inset-x-0 bottom-0 p-4 pb-6 text-center transform transition-transform duration-300 group-hover/card:-translate-y-1">
-                    <p className="text-base md:text-lg font-bold text-white drop-shadow-md">{reel.text}</p>
-                  </div>
-                )}
-              </div>
-            );
-
-            return (
-              <div
-                key={i}
-                className="shrink-0 snap-start animate-fade-in"
-              >
-                {inner}
-              </div>
-            );
-          })}
+            {displayItems.map((reel, i) => {
+              return (
+                <div
+                  key={i}
+                  className="qh-reel-card-preview shrink-0 snap-start relative overflow-hidden group/card bg-gray-100 shadow-sm transition-shadow hover:shadow-lg"
+                  style={{
+                    borderRadius: `${radius}px`,
+                  }}
+                >
+                  {reel.image ? (
+                    <img
+                      src={reel.image}
+                      alt={reel.text || ""}
+                      className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover/card:scale-105"
+                    />
+                  ) : (
+                    <div className="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-200 flex flex-col items-center justify-center text-gray-400 gap-2">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+                      <span className="text-xs font-medium">{reel.text}</span>
+                    </div>
+                  )}
+                  {reel.image && <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 transition-opacity duration-300 group-hover/card:opacity-100" />}
+                  {reel.text && reel.image && (
+                    <div className="absolute inset-x-0 bottom-0 p-4 pb-6 text-center transform transition-transform duration-300 group-hover/card:-translate-y-1">
+                      <p className="text-base md:text-lg font-bold text-white drop-shadow-md">{reel.text}</p>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
     </div>
   );
 }
 
-/* ─── Multicolumn ──────────────────────────────────────────── */
+/* â”€â”€â”€ Multicolumn â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
 export function MulticolumnPreview({ settings }: { settings: Section["settings"] }) {
   const cols = parseInt(settings.columns) || 3;
@@ -776,7 +1137,7 @@ export function MulticolumnPreview({ settings }: { settings: Section["settings"]
   );
 }
 
-/* ─── CollapsibleContent ───────────────────────────────────── */
+/* â”€â”€â”€ CollapsibleContent â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
 export function CollapsibleContentPreview({ settings }: { settings: Section["settings"] }) {
   const faqs = [
@@ -803,7 +1164,7 @@ export function CollapsibleContentPreview({ settings }: { settings: Section["set
   );
 }
 
-/* ─── Video ─────────────────────────────────────────────────── */
+/* â”€â”€â”€ Video â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
 export function VideoPreview({ settings }: { settings: Section["settings"] }) {
   return (
@@ -813,7 +1174,7 @@ export function VideoPreview({ settings }: { settings: Section["settings"] }) {
         {settings.videoUrl ? (
           <iframe src={settings.videoUrl} className="h-full w-full" allowFullScreen title="Video" />
         ) : (
-          <div className="flex h-full items-center justify-center text-4xl text-text-soft">▶</div>
+          <div className="flex h-full items-center justify-center text-4xl text-text-soft">â–¶</div>
         )}
       </div>
       {settings.description && <p className="mt-4 text-center text-text-muted">{settings.description}</p>}
@@ -821,7 +1182,7 @@ export function VideoPreview({ settings }: { settings: Section["settings"] }) {
   );
 }
 
-/* ─── ContactForm ──────────────────────────────────────────── */
+/* â”€â”€â”€ ContactForm â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
 export function ContactFormPreview({ settings }: { settings: Section["settings"] }) {
   return (
@@ -841,7 +1202,7 @@ export function ContactFormPreview({ settings }: { settings: Section["settings"]
   );
 }
 
-/* ─── LogoList ─────────────────────────────────────────────── */
+/* â”€â”€â”€ LogoList â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
 export function LogoListPreview({ settings }: { settings: Section["settings"] }) {
   const logos = [settings.logo1, settings.logo2, settings.logo3, settings.logo4, settings.logo5].filter(Boolean);
@@ -859,7 +1220,7 @@ export function LogoListPreview({ settings }: { settings: Section["settings"] })
   );
 }
 
-/* ─── FeaturedProduct ──────────────────────────────────────── */
+/* â”€â”€â”€ FeaturedProduct â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
 export function FeaturedProductPreview({ settings }: { settings: Section["settings"] }) {
   return (
@@ -869,7 +1230,7 @@ export function FeaturedProductPreview({ settings }: { settings: Section["settin
         <div className="aspect-square rounded-xl bg-background-soft flex items-center justify-center text-text-soft">Product Image</div>
         <div>
           <h3 className="text-2xl font-black text-text-main">Product Name</h3>
-          <p className="mt-2 text-xl font-bold text-brand-primary">₹1,299</p>
+          <p className="mt-2 text-xl font-bold text-brand-primary">â‚¹1,299</p>
           {settings.showDescription && <p className="mt-4 text-text-muted">Product description will appear here based on the selected product.</p>}
           <span className="mt-6 inline-flex rounded-full bg-brand-primary px-8 py-3 font-semibold text-text-inverse">Add to Cart</span>
         </div>
@@ -878,7 +1239,7 @@ export function FeaturedProductPreview({ settings }: { settings: Section["settin
   );
 }
 
-/* ─── MapSection ───────────────────────────────────────────── */
+/* â”€â”€â”€ MapSection â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
 export function MapSectionPreview({ settings }: { settings: Section["settings"] }) {
   return (
@@ -886,7 +1247,7 @@ export function MapSectionPreview({ settings }: { settings: Section["settings"] 
       <h2 className="mb-6 text-center font-display text-3xl font-black text-text-main">{settings.heading}</h2>
       <div className="grid gap-6 bp-map-grid">
         <div className="aspect-video rounded-xl bg-background-soft flex items-center justify-center text-text-soft">
-          {settings.mapEmbed ? <iframe src={settings.mapEmbed} className="h-full w-full rounded-xl" title="Map" /> : "📍 Map Preview"}
+          {settings.mapEmbed ? <iframe src={settings.mapEmbed} className="h-full w-full rounded-xl" title="Map" /> : "ðŸ“ Map Preview"}
         </div>
         <div className="flex items-center">
           <p className="text-text-muted whitespace-pre-line">{settings.address}</p>
@@ -896,13 +1257,13 @@ export function MapSectionPreview({ settings }: { settings: Section["settings"] 
   );
 }
 
-/* ─── CustomHTML ────────────────────────────────────────────── */
+/* â”€â”€â”€ CustomHTML â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
 export function CustomHTMLPreview({ settings }: { settings: Section["settings"] }) {
   return <div dangerouslySetInnerHTML={{ __html: settings.content || "<div style='padding:2rem;text-align:center;color:#888'>Custom HTML</div>" }} />;
 }
 
-/* ─── Divider ──────────────────────────────────────────────── */
+/* â”€â”€â”€ Divider â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
 export function DividerPreview({ settings }: { settings: Section["settings"] }) {
   return (
@@ -914,18 +1275,23 @@ export function DividerPreview({ settings }: { settings: Section["settings"] }) 
   );
 }
 
-/* ─── Component Map ────────────────────────────────────────── */
+/* â”€â”€â”€ Component Map â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
 export const sectionComponentMap: Record<string, React.FC<{ settings: Section["settings"] }>> = {
   BannerStrip: BannerStripPreview,
   HeroBanner: HeroBannerPreview,
   Slideshow: SlideshowPreview,
   ImageBanner: ImageBannerPreview,
+  SlideBanner: SlideBannerPreview,
+  SaleBanner: SaleBannerPreview,
+  NewArrival: NewArrivalPreview,
   ImageGrid: ImageGridPreview,
+  FiveGrid: FiveGridPreview,
   SearchBand: SearchBandPreview,
   CategoryGrid: CategoryGridPreview,
   CollectionsSection: CollectionsSectionPreview,
   ProductGrid: ProductGridPreview,
+  ProductGrid2: ProductGrid2Preview,
   FeaturedCollection: FeaturedCollectionPreview,
   FeaturedProduct: FeaturedProductPreview,
   PromisesSection: PromisesSectionPreview,
@@ -944,3 +1310,7 @@ export const sectionComponentMap: Record<string, React.FC<{ settings: Section["s
   Divider: DividerPreview,
   ReelImage: ReelImagePreview,
 };
+
+
+
+

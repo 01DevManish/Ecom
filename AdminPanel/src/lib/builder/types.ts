@@ -95,6 +95,7 @@ export interface BuilderSchema {
 
 export type FieldType =
   | "text"
+  | "datetime"
   | "textarea"
   | "richtext"
   | "color"
